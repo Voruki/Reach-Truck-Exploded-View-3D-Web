@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Yong Ming Ngoh | 3D Interactive Demonstration</title>
+  <title>Yong Ming Ngoh | Intralogistics Visualization</title>
   <link rel="stylesheet" href="style.css" />
   <!-- GSAP & ScrollTrigger -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
@@ -11,10 +11,16 @@
 </head>
 <body>
 
+  <!-- Ambient Glass Background -->
+  <div class="ambient-bg">
+    <div class="orb orb-1"></div>
+    <div class="orb orb-2"></div>
+  </div>
+
   <!-- Premium Glass Navbar -->
-  <nav class="glass-nav">
+  <nav class="glass-nav 3d-tilt">
     <div class="nav-brand">
-      <strong>Yong Ming Ngoh</strong> <span class="divider">|</span> <span class="subtitle">Demonstration</span>
+      <strong>Yong Ming Ngoh</strong> <span class="divider">/</span> <span class="subtitle">Demonstration</span>
     </div>
     <div class="nav-links">
       <a href="#hero">Overview</a>
@@ -26,29 +32,26 @@
   <!-- Loading Sequence -->
   <div id="loader">
     <div class="loader-ring"></div>
-    <p id="loader-text">Initializing Render Engine 0%</p>
+    <p id="loader-text">Loading Spatial Assets 0%</p>
   </div>
 
   <!-- Main Viewport -->
   <section id="hero" class="scroll-container">
     <div class="canvas-wrapper">
       <canvas id="product-canvas"></canvas>
+    </div>
       
-      <!-- Interactive 3D HUD -->
-      <div class="hud-layer">
-        <div class="glass-panel 3d-tilt">
-          <div class="panel-header">
-            <div class="recording-dot"></div>
-            <span>SYSTEM ANALYSIS</span>
-          </div>
-          <h1 class="gradient-text">Apex-Reach D2</h1>
-          <p>Double-deep intralogistics reach truck. Scroll to initiate mechanical exploded assembly and inspect internal robotics.</p>
-          <div class="panel-footer">
-            <div class="scroll-indicator">
-              <div class="mouse-wheel"></div>
-            </div>
-            <span>Scroll to expand</span>
-          </div>
+    <!-- Interactive 3D HUD (Moved to Bottom Left to prevent blocking) -->
+    <div class="hud-layer">
+      <div class="glass-panel 3d-tilt">
+        <div class="panel-header">
+          <div class="recording-dot"></div>
+          <span>INTRALOGISTICS CAPABILITY DEMO</span>
+        </div>
+        <h1 class="gradient-text">Kinematic Assembly<br>Visualization</h1>
+        <p>Interactive 3D spatial rendering. Scroll downwards to initiate the mechanical breakdown sequence and inspect the internal robotics infrastructure.</p>
+        <div class="panel-footer">
+          <span class="scroll-badge">↓ SCROLL TO EXPAND</span>
         </div>
       </div>
     </div>
@@ -57,8 +60,8 @@
   <!-- Engineering Overview -->
   <section id="engineering" class="content-section">
     <div class="glass-panel large-panel 3d-tilt">
-      <h2 class="gradient-text">Engineering Precision.</h2>
-      <p class="lead">Specializing in warehouse automation, robotics integration, and high-density material handling solutions. Bridging complex mechanical infrastructure with scalable intralogistics design.</p>
+      <h2 class="gradient-text">Solution Design Engineering.</h2>
+      <p class="lead">Specializing in automated warehousing, robotics integration, and high-density material handling systems. Bridging complex mechanical infrastructure with scalable intralogistics design.</p>
       <a href="mailto:your-email@example.com" class="action-btn magnetic-btn">Initiate Contact</a>
     </div>
   </section>
