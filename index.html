@@ -70,31 +70,47 @@
 
   </section>
 
-  <!-- The Creator Section -->
+  <!-- The Creator Section (Split Two-Column Profile Card) -->
   <section id="creator" class="content-section">
-    <div class="glass-panel large-panel 3d-tilt">
-      
-      <div class="panel-header" style="justify-content: center; margin-bottom: 16px;">
-        <div class="recording-dot"></div>
-        <span>THE CREATOR</span>
+    <div class="glass-panel creator-card 3d-tilt">
+      <div class="creator-layout">
+        
+        <!-- Left: Profile Image Frame -->
+        <div class="creator-photo-column">
+          <div class="creator-photo-frame">
+            <!-- Ensure your image exists at assets/images/profile.jpg or update the src accordingly -->
+            <img src="assets/images/profile.jpg" alt="Yong Ming Ngoh" class="creator-img" />
+            <div class="photo-ambient-glow"></div>
+          </div>
+        </div>
+
+        <!-- Right: Profile Details & Story -->
+        <div class="creator-content-column">
+          <div class="panel-header">
+            <div class="recording-dot"></div>
+            <span>THE CREATOR</span>
+          </div>
+
+          <h2 class="gradient-text creator-name">Yong Ming Ngoh <span class="alias">(Vorky)</span></h2>
+          
+          <p class="creator-credentials">
+            APAC Presales Solution Manager @ Libiao Robotics<br>
+            <span>Mechanical Engineering (1st Class Hons, 3.9 CGPA)</span>
+          </p>
+
+          <div class="creator-bio">
+            <p>I architect bespoke automation systems across SEAO, delivering high efficiency and storage increment gains through advanced intralogistics systems.</p>
+            <p>This interactive spatial breakdown explores how complex 3D kinematic assemblies and intralogistics CAD data can be translated into responsive web experiences, bridging industrial robotics with modern digital craft.</p>
+          </div>
+
+          <div class="creator-action">
+            <a href="https://www.linkedin.com/in/ngohyongming/" target="_blank" rel="noopener noreferrer" class="action-btn magnetic-btn">
+              Let’s Connect <i class="ph ph-linkedin-logo" style="vertical-align: middle; margin-left: 6px;"></i>
+            </a>
+          </div>
+        </div>
+
       </div>
-
-      <h2 class="gradient-text" style="font-size: 3rem; margin-bottom: 8px;">Yong Ming Ngoh (Vorky)</h2>
-      <p style="color: var(--hermes-amber); font-family: 'Space Grotesk', sans-serif; font-size: 0.95rem; letter-spacing: 0.04em; margin-bottom: 24px;">
-        APAC Presales Solution Manager @ Libiao Robotics · Mechanical Engineering (1st Class Hons, 3.9 CGPA)
-      </p>
-
-      <p class="lead" style="font-size: 1.05rem; line-height: 1.7; max-width: 680px; margin: 0 auto 20px auto;">
-        I architect bespoke automation systems across SEAO, delivering high efficiency and storage increment gains through advanced intralogistics systems.
-      </p>
-
-      <p style="font-size: 0.95rem; color: var(--text-muted); max-width: 620px; margin: 0 auto 36px auto; line-height: 1.6;">
-        This interactive spatial breakdown explores how complex 3D kinematic assemblies and intralogistics CAD data can be translated into responsive web experiences, bridging industrial robotics with modern digital craft.
-      </p>
-
-      <a href="https://www.linkedin.com/in/ngohyongming/" target="_blank" rel="noopener noreferrer" class="action-btn magnetic-btn">
-        Let’s Connect <i class="ph ph-linkedin-logo" style="vertical-align: middle; margin-left: 6px;"></i>
-      </a>
     </div>
   </section>
 
