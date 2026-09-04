@@ -128,6 +128,8 @@ function setupScrollAnimation() {
       end: "+=180%",
       scrub: 0.5,
       pin: true,
+      anticipatePin: 1,
+      invalidateOnRefresh: true, // Recalculates pin offsets & spacer dimensions on window resize
     },
     onUpdate: () => {
       render();
@@ -161,7 +163,6 @@ function setupScrollAnimation() {
 
 // --- 5. VISION-OS 3D HOVER & MAGNETIC BUTTONS ---
 function setupMouseInteractions() {
-  // Corrected selector from .3d-tilt to .tilt-3d to resolve the DOMException syntax error
   const tiltElements = document.querySelectorAll(".tilt-3d");
   gsap.set(tiltElements, { transformPerspective: 1200, transformStyle: "preserve-3d" });
 
@@ -193,4 +194,14 @@ function setupMouseInteractions() {
   });
 }
 
-window.addEventListener("resize", resizeAndRender);
+// --- 6. RESIZE SYNCHRONIZATION ---
+function handleFullResize() {
+  ScrollTrigger.refresh();
+  resizeAndRender();
+}
+
+// Triggers immediately and again at 150ms to catch the DevTools drawer closing transition
+window.addEventListener("resize", () => {
+  handleFullResize();
+  setTimeout(handleFullResize, 150);
+});
