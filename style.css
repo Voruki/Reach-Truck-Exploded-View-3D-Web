@@ -13,18 +13,17 @@
 }
 
 :root {
-  --bg-black: #050507; /* Deep studio black */
+  --bg-black: #050507; /* Pure dark velvet black */
   --hermes-orange: #FF5500; 
   --hermes-amber: #FFA200;
-  --hermes-red: #D62800;
   
   --text-main: #f5f5f7;
   --text-muted: #8e8e93;
   
-  /* Precision Smoked Liquid Glass */
+  /* Precision Liquid Glass */
   --glass-bg: rgba(14, 14, 18, 0.45);
-  --glass-border: rgba(255, 255, 255, 0.12);
-  --glass-highlight: inset 0 1px 1.5px rgba(255, 255, 255, 0.25), inset 0 -1px 2px rgba(0, 0, 0, 0.5);
+  --glass-border: rgba(255, 255, 255, 0.14);
+  --glass-highlight: inset 0 1px 1.5px rgba(255, 255, 255, 0.3), inset 0 -1px 2px rgba(0, 0, 0, 0.5);
 }
 
 * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -50,12 +49,12 @@ h1, h2, .panel-header { font-family: 'Space Grotesk', sans-serif; }
 
 .cursor-follower {
   position: fixed; top: 0; left: 0;
-  width: 32px; height: 32px; border: 1.5px solid rgba(255, 120, 0, 0.7);
+  width: 32px; height: 32px; border: 1.5px solid rgba(255, 130, 0, 0.8);
   border-radius: 50%; pointer-events: none; z-index: 9999;
   transform: translate(-50%, -50%); transition: transform 0.1s ease-out;
 }
 
-/* --- PHOTOGRAPHIC LIGHT-LEAK GRADIENT --- */
+/* --- EXACT REFERENCE DUAL-CORNER LIGHT LEAKS --- */
 .ambient-bg {
   position: fixed; 
   inset: 0; 
@@ -65,16 +64,6 @@ h1, h2, .panel-header { font-family: 'Space Grotesk', sans-serif; }
   pointer-events: none;
 }
 
-/* Film Grain Texture Overlay matching Reference 2 */
-.ambient-bg::after {
-  content: "";
-  position: absolute;
-  inset: 0;
-  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.04'/%3E%3C/svg%3E");
-  pointer-events: none;
-  opacity: 0.6;
-}
-
 .orb {
   position: absolute;
   border-radius: 50%;
@@ -82,43 +71,48 @@ h1, h2, .panel-header { font-family: 'Space Grotesk', sans-serif; }
   will-change: transform, opacity;
 }
 
-/* 1. Top-Right Amber Flare (Exact Match to Image 1) */
+/* 1. TOP-RIGHT AMBER FLARE (Matches Reference Image) */
 .orb-1 {
-  width: 60vw;
-  height: 60vw;
-  max-width: 900px;
-  max-height: 900px;
-  top: -15%;
-  right: -10%;
-  background: radial-gradient(circle at 60% 40%, rgba(255, 162, 0, 0.75) 0%, rgba(255, 85, 0, 0.45) 45%, rgba(5, 5, 7, 0) 75%);
-  filter: blur(95px);
-  animation: breathe-top-right 12s ease-in-out infinite alternate;
+  width: 65vw;
+  height: 65vw;
+  min-width: 650px;
+  min-height: 650px;
+  top: -20vh;
+  right: -15vw;
+  background: radial-gradient(circle at 60% 40%, #FFA000 0%, #FF5500 45%, #A62400 70%, transparent 85%);
+  filter: blur(85px);
+  opacity: 0.92;
+  animation: breathe-top-right 10s ease-in-out infinite alternate;
 }
 
-/* 2. Bottom-Left Fiery Orange Bloom (Exact Match to Image 1) */
+/* 2. BOTTOM-LEFT FIERY ORANGE BLOOM (Matches Reference Image) */
 .orb-2 {
   display: block !important;
-  width: 70vw;
-  height: 70vw;
-  max-width: 1100px;
-  max-height: 1100px;
-  bottom: -25%;
-  left: -15%;
-  background: radial-gradient(circle at 40% 60%, rgba(255, 95, 0, 0.8) 0%, rgba(214, 40, 0, 0.45) 50%, rgba(5, 5, 7, 0) 75%);
-  filter: blur(105px);
-  animation: breathe-bottom-left 14s ease-in-out infinite alternate;
+  width: 75vw;
+  height: 75vw;
+  min-width: 750px;
+  min-height: 750px;
+  bottom: -25vh;
+  left: -18vw;
+  background: radial-gradient(circle at 45% 55%, #FF5B00 0%, #E63500 45%, #7A0D00 70%, transparent 85%);
+  filter: blur(95px);
+  opacity: 0.95;
+  animation: breathe-bottom-left 12s ease-in-out infinite alternate;
 }
 
-/* Subtle Crimson Depth Connector */
+/* 3. CORE HIGHLIGHT PULSE */
 .orb-3 {
   display: block !important;
-  width: 45vw;
-  height: 45vw;
-  bottom: 10%;
-  left: -5%;
-  background: radial-gradient(circle, rgba(160, 20, 0, 0.4) 0%, rgba(5, 5, 7, 0) 70%);
-  filter: blur(120px);
-  animation: breathe-depth 16s ease-in-out infinite alternate;
+  width: 40vw;
+  height: 40vw;
+  min-width: 400px;
+  min-height: 400px;
+  bottom: -10vh;
+  left: -5vw;
+  background: radial-gradient(circle, #FFB700 0%, rgba(255, 85, 0, 0.5) 50%, transparent 75%);
+  filter: blur(70px);
+  opacity: 0.8;
+  animation: breathe-core 8s ease-in-out infinite alternate;
 }
 
 /* --- ORGANIC BREATHING KEYFRAMES --- */
@@ -128,11 +122,11 @@ h1, h2, .panel-header { font-family: 'Space Grotesk', sans-serif; }
     opacity: 0.85;
   }
   50% {
-    transform: translate(-3vw, 4vh) scale(1.08);
+    transform: translate(-30px, 25px) scale(1.1);
     opacity: 1;
   }
   100% {
-    transform: translate(-5vw, 2vh) scale(0.96);
+    transform: translate(-50px, 10px) scale(0.95);
     opacity: 0.8;
   }
 }
@@ -140,21 +134,21 @@ h1, h2, .panel-header { font-family: 'Space Grotesk', sans-serif; }
 @keyframes breathe-bottom-left {
   0% {
     transform: translate(0, 0) scale(1);
-    opacity: 0.9;
+    opacity: 0.88;
   }
   50% {
-    transform: translate(4vw, -3vh) scale(1.1);
-    opacity: 0.95;
+    transform: translate(35px, -30px) scale(1.12);
+    opacity: 1;
   }
   100% {
-    transform: translate(2vw, -5vh) scale(0.95);
+    transform: translate(20px, -45px) scale(0.94);
     opacity: 0.85;
   }
 }
 
-@keyframes breathe-depth {
-  0% { transform: scale(1) translateY(0); opacity: 0.4; }
-  100% { transform: scale(1.15) translateY(-40px); opacity: 0.65; }
+@keyframes breathe-core {
+  0% { transform: scale(1); opacity: 0.65; }
+  100% { transform: scale(1.2); opacity: 0.9; }
 }
 
 /* --- Floating Glass Navbar --- */
@@ -175,8 +169,8 @@ h1, h2, .panel-header { font-family: 'Space Grotesk', sans-serif; }
 }
 
 .glass-nav:hover {
-  border-color: rgba(255, 255, 255, 0.28);
-  box-shadow: var(--glass-highlight), 0 20px 40px rgba(0,0,0,0.6), 0 0 25px rgba(255, 95, 0, 0.2);
+  border-color: rgba(255, 255, 255, 0.3);
+  box-shadow: var(--glass-highlight), 0 20px 40px rgba(0,0,0,0.6), 0 0 25px rgba(255, 95, 0, 0.25);
 }
 
 .nav-brand { font-size: 0.95rem; letter-spacing: 0.02em; }
@@ -225,7 +219,7 @@ h1, h2, .panel-header { font-family: 'Space Grotesk', sans-serif; }
   backdrop-filter: blur(35px) saturate(180%);
   -webkit-backdrop-filter: blur(35px) saturate(180%);
   border: 1px solid var(--glass-border);
-  box-shadow: var(--glass-highlight), 0 35px 80px rgba(0, 0, 0, 0.8), 0 0 50px rgba(255, 85, 0, 0.12);
+  box-shadow: var(--glass-highlight), 0 35px 80px rgba(0, 0, 0, 0.8), 0 0 50px rgba(255, 85, 0, 0.18);
   
   -webkit-mask-image: -webkit-radial-gradient(white, black);
   
