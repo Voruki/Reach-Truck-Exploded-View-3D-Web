@@ -427,7 +427,7 @@ h1, h2, .panel-header { font-family: 'Space Grotesk', sans-serif; }
   box-shadow: 0 15px 30px rgba(255, 85, 0, 0.5);
 }
 
-/* --- MOBILE RESPONSIVENESS (SCALED UP BRAND TITLE & ACTION PILLS) --- */
+/* --- MOBILE RESPONSIVENESS (SCALED UP BRAND TITLE, SEPARATOR LINE & ACTION PILLS) --- */
 @media (max-width: 860px) {
   /* Hide custom desktop cursor on mobile */
   .custom-cursor,
@@ -452,7 +452,7 @@ h1, h2, .panel-header { font-family: 'Space Grotesk', sans-serif; }
     border-radius: 26px !important;
   }
 
-  /* Row 1: BUMPED UP BRAND TITLE (Yong Ming Ngoh / Demonstration) */
+  /* Row 1: Brand Title with Separator Line underneath */
   .nav-brand {
     display: inline-flex !important;
     align-items: center !important;
@@ -462,6 +462,8 @@ h1, h2, .panel-header { font-family: 'Space Grotesk', sans-serif; }
     text-align: center;
     width: 100% !important;
     opacity: 1 !important;
+    padding-bottom: 8px !important;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.14) !important; /* Separator line */
   }
 
   .nav-brand strong {
@@ -476,7 +478,7 @@ h1, h2, .panel-header { font-family: 'Space Grotesk', sans-serif; }
     margin: 0 6px !important;
   }
 
-  /* Row 2: Action Pills (Kept compact, clean, and distinct) */
+  /* Row 2: Action Pills */
   .nav-links {
     display: flex !important;
     justify-content: center !important;
