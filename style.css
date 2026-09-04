@@ -151,11 +151,20 @@ h1, h2, .panel-header { font-family: 'Space Grotesk', sans-serif; }
   100% { transform: scale(1.2); opacity: 0.9; }
 }
 
-/* --- Floating Glass Navbar --- */
+/* --- Floating Glass Navbar (Extended Past Viewport Width) --- */
 .glass-nav {
-  position: fixed; top: 24px; left: 50%; transform: translateX(-50%);
-  width: calc(100% - 48px); max-width: 1000px; height: 60px;
-  display: flex; justify-content: space-between; align-items: center; padding: 0 32px;
+  position: fixed; 
+  top: 24px; 
+  left: 0;
+  right: 0;
+  margin: 0 auto;
+  width: min(calc(92vw + 48px), calc(100vw - 32px));
+  max-width: 1680px; 
+  height: 60px;
+  display: flex; 
+  justify-content: space-between; 
+  align-items: center; 
+  padding: 0 32px;
   
   background: var(--glass-bg);
   backdrop-filter: blur(28px) saturate(180%);
@@ -251,8 +260,8 @@ h1, h2, .panel-header { font-family: 'Space Grotesk', sans-serif; }
   display: block; 
   image-rendering: -webkit-optimize-contrast;
   
-  /* Translucent Liquid Glass Blend */
-  opacity: 0.86;
+  /* Reduced transparency: higher opacity brings back solid mechanical presence */
+  opacity: 0.94;
   mix-blend-mode: lighten;
 }
 
