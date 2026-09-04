@@ -52,9 +52,9 @@ const context = canvas.getContext("2d");
 const loader = document.getElementById("loader");
 const loaderText = document.getElementById("loader-text");
 const viewport = document.querySelector('.glass-viewport');
-const hudLayer = document.querySelector('.hud-layer'); // Reference for Frame 44 fade
+const hudLayer = document.querySelector('.hud-layer');
 
-const FRAME_COUNT = 60; // Locked to your 60 frames
+const FRAME_COUNT = 60; 
 const images = [];
 const forkliftTrack = { frame: 0 };
 
@@ -67,6 +67,11 @@ function resizeAndRender() {
   const dpr = window.devicePixelRatio || 1;
   canvas.width = viewport.clientWidth * dpr;
   canvas.height = viewport.clientHeight * dpr;
+  
+  // Enable high-quality rendering to eliminate blurriness on high-DPI displays
+  context.imageSmoothingEnabled = true;
+  context.imageSmoothingQuality = "high";
+  
   render();
 }
 
@@ -119,8 +124,9 @@ function setupScrollAnimation() {
     scrollTrigger: {
       trigger: "#hero",
       start: "top top",
-      end: "+=300%", 
-      scrub: 1, 
+      // Shortened scroll distance to 180% so it feels much faster and responsive
+      end: "+=180%", 
+      scrub: 0.5, // Faster, tighter scrub response
       pin: true, 
     },
     onUpdate: () => {
@@ -130,13 +136,11 @@ function setupScrollAnimation() {
       const currentFrame = forkliftTrack.frame;
       if (hudLayer) {
         if (currentFrame <= 44) {
-          // Gradually fade out and slide up as it reaches frame 44
           const opacity = 1 - (currentFrame / 44);
           hudLayer.style.opacity = opacity;
           hudLayer.style.transform = `translateY(${(currentFrame / 44) * -25}px)`;
           hudLayer.style.pointerEvents = opacity === 0 ? 'none' : 'auto';
         } else {
-          // Past frame 44: fully hidden and unclickable
           hudLayer.style.opacity = 0;
           hudLayer.style.transform = `translateY(-25px)`;
           hudLayer.style.pointerEvents = 'none';
