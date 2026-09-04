@@ -51,9 +51,10 @@ const canvas = document.getElementById("product-canvas");
 const context = canvas.getContext("2d");
 const loader = document.getElementById("loader");
 const loaderText = document.getElementById("loader-text");
-const viewport = document.querySelector('.glass-viewport'); // Target the new rounded glass container
+const viewport = document.querySelector('.glass-viewport');
+const hudLayer = document.querySelector('.hud-layer'); // Reference for Frame 44 fade
 
-const FRAME_COUNT = 60; // Locked to 60 frames
+const FRAME_COUNT = 60; // Locked to your 60 frames
 const images = [];
 const forkliftTrack = { frame: 0 };
 
@@ -62,7 +63,6 @@ const getFramePath = (index) => `frames/frame_${formatFrame(index)}.jpg`;
 
 let loadedCount = 0;
 
-// Size the canvas to exactly match the rounded glass container, not the entire window
 function resizeAndRender() {
   const dpr = window.devicePixelRatio || 1;
   canvas.width = viewport.clientWidth * dpr;
@@ -78,8 +78,6 @@ function render() {
 
   const hRatio = canvas.width / img.naturalWidth;
   const vRatio = canvas.height / img.naturalHeight;
-  
-  // Math.max perfectly covers the rounded container corners, eliminating the dead square outline
   const ratio = Math.max(hRatio, vRatio); 
 
   const drawWidth = img.naturalWidth * ratio;
@@ -112,25 +110,39 @@ for (let i = 0; i < FRAME_COUNT; i++) {
   images.push(img);
 }
 
-// --- 4. GSAP SCROLL ANIMATION (THE FIX) ---
+// --- 4. GSAP SCROLL ANIMATION & FRAME 44 TEXT FADE ---
 function setupScrollAnimation() {
-  // Use a GSAP Timeline connected to ScrollTrigger for rock-solid pinning
-  const tl = gsap.timeline({
-    scrollTrigger: {
-      trigger: "#hero",
-      start: "top top",
-      // +=300% forces the user to scroll a good distance, allowing all 60 frames to play without rushing
-      end: "+=300%", 
-      scrub: 1, // Smooth scrub delay
-      pin: true, // Locks the hero container in place until the animation finishes
-    }
-  });
-
-  tl.to(forkliftTrack, {
+  gsap.to(forkliftTrack, {
     frame: FRAME_COUNT - 1,
     snap: "frame",
     ease: "none",
-    onUpdate: render,
+    scrollTrigger: {
+      trigger: "#hero",
+      start: "top top",
+      end: "+=300%", 
+      scrub: 1, 
+      pin: true, 
+    },
+    onUpdate: () => {
+      render();
+
+      // FRAME 44 TEXT FADE LOGIC
+      const currentFrame = forkliftTrack.frame;
+      if (hudLayer) {
+        if (currentFrame <= 44) {
+          // Gradually fade out and slide up as it reaches frame 44
+          const opacity = 1 - (currentFrame / 44);
+          hudLayer.style.opacity = opacity;
+          hudLayer.style.transform = `translateY(${(currentFrame / 44) * -25}px)`;
+          hudLayer.style.pointerEvents = opacity === 0 ? 'none' : 'auto';
+        } else {
+          // Past frame 44: fully hidden and unclickable
+          hudLayer.style.opacity = 0;
+          hudLayer.style.transform = `translateY(-25px)`;
+          hudLayer.style.pointerEvents = 'none';
+        }
+      }
+    }
   });
 }
 
