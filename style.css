@@ -154,7 +154,25 @@ h1, h2, .panel-header { font-family: 'Space Grotesk', sans-serif; }
   box-shadow: var(--glass-highlight), 0 20px 40px rgba(0,0,0,0.6), 0 0 25px rgba(255, 162, 0, 0.25);
 }
 
-.nav-brand { font-size: 0.95rem; letter-spacing: 0.02em; }
+.nav-brand { 
+  display: inline-flex;
+  align-items: center;
+  font-size: 0.95rem; 
+  letter-spacing: 0.02em; 
+}
+
+/* Glowing Orange Dot beside title */
+.brand-dot {
+  display: inline-block;
+  width: 7px;
+  height: 7px;
+  margin-right: 9px;
+  background-color: var(--hermes-orange);
+  border-radius: 50%;
+  box-shadow: 0 0 8px rgba(255, 85, 0, 0.9), 0 0 16px rgba(255, 85, 0, 0.45);
+  flex-shrink: 0;
+}
+
 .nav-brand strong { font-weight: 600; color: #FFFFFF; }
 .nav-brand .divider { margin: 0 8px; color: rgba(255, 255, 255, 0.4); }
 
