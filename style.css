@@ -1,3 +1,18 @@
+/* --- LOCAL PREMIUM FONTS --- */
+@font-face {
+  font-family: 'Inter';
+  src: url('assets/fonts/Inter-VariableFont_slnt,wght.ttf') format('truetype');
+  font-weight: 100 900;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Space Grotesk';
+  src: url('assets/fonts/SpaceGrotesk-VariableFont_wght.ttf') format('truetype');
+  font-weight: 300 700;
+  font-style: normal;
+}
+
 :root {
   --bg-color: #0b0c10;
   --text-main: #f5f5f7;
@@ -13,12 +28,32 @@
   padding: 0;
 }
 
-body {
+body, html {
   background-color: var(--bg-color);
   color: var(--text-main);
-  font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "Segoe UI", Roboto, Helvetica, sans-serif;
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, "SF Pro Display", sans-serif;
   overflow-x: hidden;
   -webkit-font-smoothing: antialiased;
+  cursor: none; /* Hides native cursor for VisionOS feel */
+}
+
+h1, h2, .panel-header {
+  font-family: 'Space Grotesk', sans-serif; 
+}
+
+/* --- Custom Cursor --- */
+.custom-cursor {
+  position: fixed; top: 0; left: 0;
+  width: 6px; height: 6px; background-color: var(--accent);
+  border-radius: 50%; pointer-events: none; z-index: 10000;
+  transform: translate(-50%, -50%); transition: width 0.2s, height 0.2s;
+}
+
+.cursor-follower {
+  position: fixed; top: 0; left: 0;
+  width: 32px; height: 32px; border: 1px solid rgba(255, 107, 24, 0.4);
+  border-radius: 50%; pointer-events: none; z-index: 9999;
+  transform: translate(-50%, -50%); transition: transform 0.1s ease-out;
 }
 
 /* --- Ambient Background Orbs --- */
@@ -122,7 +157,7 @@ body {
   position: sticky; top: 0; left: 0; width: 100vw; height: 100vh;
   display: flex; align-items: center; justify-content: center;
   
-  /* THIS FIXES THE DEAD SQUARE BORDER! Fades the image edges into the background */
+  /* Radial Mask for smooth image blending */
   -webkit-mask-image: radial-gradient(ellipse 70% 70% at 50% 50%, black 40%, transparent 95%);
   mask-image: radial-gradient(ellipse 70% 70% at 50% 50%, black 40%, transparent 95%);
 }
@@ -135,8 +170,8 @@ body {
   padding: 0 6% 6%;
   pointer-events: none; 
   display: flex;
-  align-items: flex-end; /* Pushes the card to the bottom */
-  justify-content: flex-start; /* Pushes the card to the left */
+  align-items: flex-end; 
+  justify-content: flex-start; 
 }
 
 .glass-panel {
@@ -153,7 +188,6 @@ body {
   transition: border-color 0.4s ease, box-shadow 0.4s ease;
 }
 
-/* The beautiful hover glow on the panels */
 .glass-panel:hover {
   border-color: rgba(255, 107, 24, 0.4);
   box-shadow: var(--glass-highlight), 0 30px 60px rgba(0,0,0,0.6), 0 0 30px rgba(255, 107, 24, 0.15);
