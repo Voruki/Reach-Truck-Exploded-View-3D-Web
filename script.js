@@ -53,6 +53,7 @@ const loader = document.getElementById("loader");
 const loaderText = document.getElementById("loader-text");
 const viewport = document.querySelector('.glass-viewport');
 const hudLayer = document.querySelector('.hud-layer');
+const studioHalo = document.querySelector('.orb-1'); // Targets the backlight halo
 
 const FRAME_COUNT = 60; 
 const images = [];
@@ -68,7 +69,6 @@ function resizeAndRender() {
   canvas.width = viewport.clientWidth * dpr;
   canvas.height = viewport.clientHeight * dpr;
   
-  // Enable high-quality rendering to eliminate blurriness on high-DPI displays
   context.imageSmoothingEnabled = true;
   context.imageSmoothingQuality = "high";
   
@@ -115,7 +115,7 @@ for (let i = 0; i < FRAME_COUNT; i++) {
   images.push(img);
 }
 
-// --- 4. GSAP SCROLL ANIMATION & FRAME 44 TEXT FADE ---
+// --- 4. GSAP SCROLL ANIMATION, HALO EXPANSION & FRAME 44 TEXT FADE ---
 function setupScrollAnimation() {
   gsap.to(forkliftTrack, {
     frame: FRAME_COUNT - 1,
@@ -124,16 +124,26 @@ function setupScrollAnimation() {
     scrollTrigger: {
       trigger: "#hero",
       start: "top top",
-      // Shortened scroll distance to 180% so it feels much faster and responsive
       end: "+=180%", 
-      scrub: 0.5, // Faster, tighter scrub response
+      scrub: 0.5, 
       pin: true, 
     },
     onUpdate: () => {
       render();
 
-      // FRAME 44 TEXT FADE LOGIC
       const currentFrame = forkliftTrack.frame;
+      const progress = currentFrame / (FRAME_COUNT - 1);
+
+      // 1. DYNAMIC BACKLIT STUDIO HALO
+      // As parts explode outward, the backlight smoothly expands and warms up
+      if (studioHalo) {
+        const scale = 1 + progress * 0.28; // Scales from 1.0 to 1.28
+        const opacity = 0.85 + progress * 0.15; // Intensifies as components expand
+        studioHalo.style.transform = `scale(${scale})`;
+        studioHalo.style.opacity = opacity;
+      }
+
+      // 2. FRAME 44 TEXT FADE LOGIC
       if (hudLayer) {
         if (currentFrame <= 44) {
           const opacity = 1 - (currentFrame / 44);
