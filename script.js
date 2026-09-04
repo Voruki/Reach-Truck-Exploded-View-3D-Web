@@ -69,7 +69,6 @@ function resizeAndRender() {
   canvas.width = viewport.clientWidth * dpr;
   canvas.height = viewport.clientHeight * dpr;
 
-  // High-clarity rendering to keep mechanical details sharp
   context.imageSmoothingEnabled = true;
   context.imageSmoothingQuality = "high";
 
@@ -116,7 +115,7 @@ for (let i = 0; i < FRAME_COUNT; i++) {
   images.push(img);
 }
 
-// --- 4. GSAP SCROLL ANIMATION, REACTIVE GRADIENT & FRAME 44 HUD FADE ---
+// --- 4. GSAP SCROLL ANIMATION, SEAMLESS AMBIENT DRIFT & HUD FADE ---
 function setupScrollAnimation() {
   gsap.to(forkliftTrack, {
     frame: FRAME_COUNT - 1,
@@ -129,7 +128,7 @@ function setupScrollAnimation() {
       scrub: 0.5,
       pin: true,
       anticipatePin: 1,
-      invalidateOnRefresh: true, // Recalculates pin offsets & spacer dimensions on window resize
+      invalidateOnRefresh: true,
     },
     onUpdate: () => {
       render();
@@ -137,10 +136,11 @@ function setupScrollAnimation() {
       const currentFrame = forkliftTrack.frame;
       const progress = currentFrame / (FRAME_COUNT - 1);
 
-      // 1. SCROLL-REACTIVE AMBIENT DRIFT
+      // 1. SEAMLESS SCROLL-REACTIVE AMBIENT DRIFT
+      // Calibrated to stay safely within the 60px CSS bleed margins
       if (ambientBg) {
-        const driftY = progress * -40;
-        const subtleScale = 1 + progress * 0.06;
+        const driftY = progress * -30;
+        const subtleScale = 1 + progress * 0.08;
         ambientBg.style.transform = `translateY(${driftY}px) scale(${subtleScale})`;
       }
 
@@ -200,7 +200,6 @@ function handleFullResize() {
   resizeAndRender();
 }
 
-// Triggers immediately and again at 150ms to catch the DevTools drawer closing transition
 window.addEventListener("resize", () => {
   handleFullResize();
   setTimeout(handleFullResize, 150);
