@@ -13,7 +13,7 @@ const forkliftTrack = { frame: 0 };
 const formatFrame = (index) => String(index + 1).padStart(3, "0");
 
 // Update with your actual asset extension (.webp or .jpg)
-const getFramePath = (index) => `frames/frame_${formatFrame(index)}.webp`;
+const getFramePath = (index) => `frames/frame_${formatFrame(index)}.jpg`;
 
 let loadedCount = 0;
 
