@@ -22,21 +22,16 @@ gsap.ticker.add((time) => {
 });
 gsap.ticker.lagSmoothing(0, 0);
 
-
 // --- 2. CUSTOM VISION-OS CURSOR ---
 const cursor = document.querySelector('.custom-cursor');
 const follower = document.querySelector('.cursor-follower');
 
 document.addEventListener('mousemove', (e) => {
-  // Move primary dot instantly
   cursor.style.left = e.clientX + 'px';
   cursor.style.top = e.clientY + 'px';
-  
-  // Move trailing orbital ring smoothly
   follower.style.transform = `translate(${e.clientX - 16}px, ${e.clientY - 16}px)`;
 });
 
-// Cursor expansion on interactive elements
 const interactives = document.querySelectorAll('a, .magnetic-btn');
 interactives.forEach(el => {
   el.addEventListener('mouseenter', () => {
@@ -51,14 +46,14 @@ interactives.forEach(el => {
   });
 });
 
-
 // --- 3. CANVAS SETUP & PRELOADING ---
 const canvas = document.getElementById("product-canvas");
 const context = canvas.getContext("2d");
 const loader = document.getElementById("loader");
 const loaderText = document.getElementById("loader-text");
+const viewport = document.querySelector('.glass-viewport'); // Target the new rounded glass container
 
-const FRAME_COUNT = 60;
+const FRAME_COUNT = 60; // Locked to 60 frames
 const images = [];
 const forkliftTrack = { frame: 0 };
 
@@ -67,10 +62,11 @@ const getFramePath = (index) => `frames/frame_${formatFrame(index)}.jpg`;
 
 let loadedCount = 0;
 
+// Size the canvas to exactly match the rounded glass container, not the entire window
 function resizeAndRender() {
   const dpr = window.devicePixelRatio || 1;
-  canvas.width = window.innerWidth * dpr;
-  canvas.height = window.innerHeight * dpr;
+  canvas.width = viewport.clientWidth * dpr;
+  canvas.height = viewport.clientHeight * dpr;
   render();
 }
 
@@ -82,7 +78,9 @@ function render() {
 
   const hRatio = canvas.width / img.naturalWidth;
   const vRatio = canvas.height / img.naturalHeight;
-  const ratio = Math.min(hRatio, vRatio) * 0.9; 
+  
+  // Math.max perfectly covers the rounded container corners, eliminating the dead square outline
+  const ratio = Math.max(hRatio, vRatio); 
 
   const drawWidth = img.naturalWidth * ratio;
   const drawHeight = img.naturalHeight * ratio;
@@ -114,46 +112,45 @@ for (let i = 0; i < FRAME_COUNT; i++) {
   images.push(img);
 }
 
-
-// --- 4. GSAP SCROLL ANIMATION ---
+// --- 4. GSAP SCROLL ANIMATION (THE FIX) ---
 function setupScrollAnimation() {
-  gsap.to(forkliftTrack, {
+  // Use a GSAP Timeline connected to ScrollTrigger for rock-solid pinning
+  const tl = gsap.timeline({
+    scrollTrigger: {
+      trigger: "#hero",
+      start: "top top",
+      // +=300% forces the user to scroll a good distance, allowing all 60 frames to play without rushing
+      end: "+=300%", 
+      scrub: 1, // Smooth scrub delay
+      pin: true, // Locks the hero container in place until the animation finishes
+    }
+  });
+
+  tl.to(forkliftTrack, {
     frame: FRAME_COUNT - 1,
     snap: "frame",
     ease: "none",
-    scrollTrigger: {
-      trigger: ".scroll-container",
-      start: "top top",
-      end: "bottom bottom",
-      scrub: 0.5, // 0.5 adds slight inertia to the image sequence
-    },
     onUpdate: render,
   });
 }
 
-
-// --- 5. PREMIUM 3D HOVER & MAGNETIC EFFECTS ---
+// --- 5. PREMIUM 3D HOVER EFFECTS ---
 function setupMouseInteractions() {
   const tiltElements = document.querySelectorAll(".3d-tilt");
-
-  // Apply base perspective to elements so they can pop in 3D
   gsap.set(tiltElements, { transformPerspective: 1200, transformStyle: "preserve-3d" });
 
   document.addEventListener("mousemove", (e) => {
-    // Calculate normalized mouse coordinates (-1 to 1)
     const xData = (e.clientX / window.innerWidth - 0.5) * 2;
     const yData = (e.clientY / window.innerHeight - 0.5) * 2;
 
-    // Tilt the glass panels based on cursor location
     gsap.to(tiltElements, {
-      rotationY: xData * 8,   // Max tilt 8 degrees
-      rotationX: -yData * 8, 
+      rotationY: xData * 4, 
+      rotationX: -yData * 4, 
       ease: "power2.out",
-      duration: 1.2
+      duration: 1.5
     });
   });
 
-  // Magnetic button pull effect
   const magneticBtns = document.querySelectorAll(".magnetic-btn");
   magneticBtns.forEach((btn) => {
     btn.addEventListener("mousemove", (e) => {
@@ -161,20 +158,11 @@ function setupMouseInteractions() {
       const x = e.clientX - rect.left - rect.width / 2;
       const y = e.clientY - rect.top - rect.height / 2;
       
-      gsap.to(btn, {
-        x: x * 0.3,
-        y: y * 0.3,
-        duration: 0.4,
-        ease: "power2.out"
-      });
+      gsap.to(btn, { x: x * 0.3, y: y * 0.3, duration: 0.4, ease: "power2.out" });
     });
     
     btn.addEventListener("mouseleave", () => {
-      gsap.to(btn, {
-        x: 0, y: 0,
-        duration: 0.7,
-        ease: "elastic.out(1, 0.3)" 
-      });
+      gsap.to(btn, { x: 0, y: 0, duration: 0.7, ease: "elastic.out(1, 0.3)" });
     });
   });
 }
