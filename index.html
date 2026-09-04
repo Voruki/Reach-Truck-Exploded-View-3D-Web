@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Apex-Reach D2 | Interactive Exploded View</title>
+  <link rel="stylesheet" href="style.css" />
+  <!-- GSAP & ScrollTrigger CDN -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+</head>
+<body>
+
+  <!-- Top Glass Navigation Bar -->
+  <header class="navbar">
+    <div class="nav-brand">APEX-REACH D2</div>
+    <nav class="nav-links">
+      <a href="#hero">Overview</a>
+      <a href="#profile">About Me</a>
+      <a href="https://yourportfoliolink.com" target="_blank" rel="noopener">Portfolio ↗</a>
+      <a href="#contact" class="btn-contact">Contact</a>
+    </nav>
+  </header>
+
+  <!-- Loading Bar -->
+  <div id="loader" class="loader">
+    <div class="loader-spinner"></div>
+    <p id="loader-text">Loading Mechanical Assets: 0%</p>
+  </div>
+
+  <!-- Scroll Section with Pinned Canvas -->
+  <section id="hero" class="scroll-container">
+    <div class="canvas-wrapper">
+      <canvas id="product-canvas"></canvas>
+      
+      <!-- Optional Floating Overlays -->
+      <div class="hud-layer">
+        <div class="hud-card top-left">
+          <span class="hud-tag">System</span>
+          <h3>Pantograph Reach Truck</h3>
+          <p>Scroll down to inspect internal sub-assemblies</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Profile & Portfolio Section -->
+  <section id="profile" class="content-section">
+    <div class="section-card">
+      <span class="hud-tag">Engineer / Creator</span>
+      <h2>System Architecture & Design</h2>
+      <p>Specialized in intralogistics robotics, automated warehousing solutions, and precision mechanical engineering.</p>
+    </div>
+  </section>
+
+  <!-- Contact Section -->
+  <section id="contact" class="content-section">
+    <div class="section-card">
+      <span class="hud-tag">Inquiries</span>
+      <h2>Get in Touch</h2>
+      <p>Looking to collaborate or explore high-density warehouse solutions?</p>
+      <a href="mailto:your-email@example.com" class="action-button">Send Message</a>
+    </div>
+  </section>
+
+  <script src="script.js"></script>
+</body>
+</html>
