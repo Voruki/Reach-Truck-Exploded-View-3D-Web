@@ -1,11 +1,15 @@
-// --- 1. PREMIUM SMOOTH SCROLLING (LENIS) ---
+// Detect touch screen to prevent touch hijacking and unnecessary calculations
+const isTouch = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
+
+// --- 1. OPTIMIZED SMOOTH SCROLLING (LENIS) ---
 const lenis = new Lenis({
   duration: 1.2,
   easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
   direction: 'vertical',
   gestureDirection: 'vertical',
   smooth: true,
-  mouseMultiplier: 1,
+  smoothTouch: false, // Let mobile touch scroll naturally without locking/stuttering
+  touchMultiplier: 1.5,
 });
 
 function raf(time) {
@@ -22,29 +26,31 @@ gsap.ticker.add((time) => {
 });
 gsap.ticker.lagSmoothing(0, 0);
 
-// --- 2. CUSTOM VISION-OS CURSOR ---
+// --- 2. CUSTOM VISION-OS CURSOR (DESKTOP ONLY) ---
 const cursor = document.querySelector('.custom-cursor');
 const follower = document.querySelector('.cursor-follower');
 
-document.addEventListener('mousemove', (e) => {
-  cursor.style.left = e.clientX + 'px';
-  cursor.style.top = e.clientY + 'px';
-  follower.style.transform = `translate(${e.clientX - 16}px, ${e.clientY - 16}px)`;
-});
+if (!isTouch && cursor && follower) {
+  document.addEventListener('mousemove', (e) => {
+    cursor.style.left = e.clientX + 'px';
+    cursor.style.top = e.clientY + 'px';
+    follower.style.transform = `translate(${e.clientX - 16}px, ${e.clientY - 16}px)`;
+  });
 
-const interactives = document.querySelectorAll('a, .magnetic-btn');
-interactives.forEach((el) => {
-  el.addEventListener('mouseenter', () => {
-    cursor.style.width = '12px';
-    cursor.style.height = '12px';
-    cursor.style.mixBlendMode = 'difference';
+  const interactives = document.querySelectorAll('a, .magnetic-btn');
+  interactives.forEach((el) => {
+    el.addEventListener('mouseenter', () => {
+      cursor.style.width = '12px';
+      cursor.style.height = '12px';
+      cursor.style.mixBlendMode = 'difference';
+    });
+    el.addEventListener('mouseleave', () => {
+      cursor.style.width = '6px';
+      cursor.style.height = '6px';
+      cursor.style.mixBlendMode = 'normal';
+    });
   });
-  el.addEventListener('mouseleave', () => {
-    cursor.style.width = '6px';
-    cursor.style.height = '6px';
-    cursor.style.mixBlendMode = 'normal';
-  });
-});
+}
 
 // --- 3. CANVAS SETUP & PRELOADING ---
 const canvas = document.getElementById("product-canvas");
@@ -65,7 +71,8 @@ const getFramePath = (index) => `frames/frame_${formatFrame(index)}.jpg`;
 let loadedCount = 0;
 
 function resizeAndRender() {
-  const dpr = window.devicePixelRatio || 1;
+  // Cap devicePixelRatio at 2 on mobile retina screens to avoid GPU memory bottleneck
+  const dpr = Math.min(window.devicePixelRatio || 1, 2);
   canvas.width = viewport.clientWidth * dpr;
   canvas.height = viewport.clientHeight * dpr;
 
@@ -137,7 +144,6 @@ function setupScrollAnimation() {
       const progress = currentFrame / (FRAME_COUNT - 1);
 
       // 1. SEAMLESS SCROLL-REACTIVE AMBIENT DRIFT
-      // Calibrated to stay safely within the 60px CSS bleed margins
       if (ambientBg) {
         const driftY = progress * -30;
         const subtleScale = 1 + progress * 0.08;
@@ -161,8 +167,10 @@ function setupScrollAnimation() {
   });
 }
 
-// --- 5. VISION-OS 3D HOVER & MAGNETIC BUTTONS ---
+// --- 5. VISION-OS 3D HOVER & MAGNETIC BUTTONS (DESKTOP ONLY) ---
 function setupMouseInteractions() {
+  if (isTouch) return; // Prevent touch/gyro listener loop overhead on mobile
+
   const tiltElements = document.querySelectorAll(".tilt-3d");
   gsap.set(tiltElements, { transformPerspective: 1200, transformStyle: "preserve-3d" });
 
