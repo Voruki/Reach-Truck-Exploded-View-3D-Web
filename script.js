@@ -1,5 +1,58 @@
-gsap.registerPlugin(ScrollTrigger);
+// --- 1. PREMIUM SMOOTH SCROLLING (LENIS) ---
+const lenis = new Lenis({
+  duration: 1.2,
+  easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+  direction: 'vertical',
+  gestureDirection: 'vertical',
+  smooth: true,
+  mouseMultiplier: 1,
+});
 
+function raf(time) {
+  lenis.raf(time);
+  requestAnimationFrame(raf);
+}
+requestAnimationFrame(raf);
+
+// Sync Lenis with GSAP ScrollTrigger
+gsap.registerPlugin(ScrollTrigger);
+lenis.on('scroll', ScrollTrigger.update);
+gsap.ticker.add((time) => {
+  lenis.raf(time * 1000);
+});
+gsap.ticker.lagSmoothing(0, 0);
+
+
+// --- 2. CUSTOM VISION-OS CURSOR ---
+const cursor = document.querySelector('.custom-cursor');
+const follower = document.querySelector('.cursor-follower');
+
+document.addEventListener('mousemove', (e) => {
+  // Move primary dot instantly
+  cursor.style.left = e.clientX + 'px';
+  cursor.style.top = e.clientY + 'px';
+  
+  // Move trailing orbital ring smoothly
+  follower.style.transform = `translate(${e.clientX - 16}px, ${e.clientY - 16}px)`;
+});
+
+// Cursor expansion on interactive elements
+const interactives = document.querySelectorAll('a, .magnetic-btn');
+interactives.forEach(el => {
+  el.addEventListener('mouseenter', () => {
+    cursor.style.width = '12px'; 
+    cursor.style.height = '12px';
+    cursor.style.mixBlendMode = 'difference';
+  });
+  el.addEventListener('mouseleave', () => {
+    cursor.style.width = '6px'; 
+    cursor.style.height = '6px';
+    cursor.style.mixBlendMode = 'normal';
+  });
+});
+
+
+// --- 3. CANVAS SETUP & PRELOADING ---
 const canvas = document.getElementById("product-canvas");
 const context = canvas.getContext("2d");
 const loader = document.getElementById("loader");
@@ -57,10 +110,12 @@ for (let i = 0; i < FRAME_COUNT; i++) {
     }
   };
   
-  img.onerror = () => console.error(`Missing: ${img.src}`);
+  img.onerror = () => console.error(`Missing frame: ${img.src}`);
   images.push(img);
 }
 
+
+// --- 4. GSAP SCROLL ANIMATION ---
 function setupScrollAnimation() {
   gsap.to(forkliftTrack, {
     frame: FRAME_COUNT - 1,
@@ -70,13 +125,14 @@ function setupScrollAnimation() {
       trigger: ".scroll-container",
       start: "top top",
       end: "bottom bottom",
-      scrub: 0.5, 
+      scrub: 0.5, // 0.5 adds slight inertia to the image sequence
     },
     onUpdate: render,
   });
 }
 
-// PREMIUM 3D HOVER EFFECTS
+
+// --- 5. PREMIUM 3D HOVER & MAGNETIC EFFECTS ---
 function setupMouseInteractions() {
   const tiltElements = document.querySelectorAll(".3d-tilt");
 
