@@ -136,7 +136,6 @@ function setupScrollAnimation() {
       const progress = currentFrame / (FRAME_COUNT - 1);
 
       // 1. SCROLL-REACTIVE AMBIENT DRIFT
-      // Moves the entire lighting field subtly with the scroll without overriding the CSS orb breathing keyframes
       if (ambientBg) {
         const driftY = progress * -40;
         const subtleScale = 1 + progress * 0.06;
@@ -162,7 +161,8 @@ function setupScrollAnimation() {
 
 // --- 5. VISION-OS 3D HOVER & MAGNETIC BUTTONS ---
 function setupMouseInteractions() {
-  const tiltElements = document.querySelectorAll(".3d-tilt");
+  // Corrected selector from .3d-tilt to .tilt-3d to resolve the DOMException syntax error
+  const tiltElements = document.querySelectorAll(".tilt-3d");
   gsap.set(tiltElements, { transformPerspective: 1200, transformStyle: "preserve-3d" });
 
   document.addEventListener("mousemove", (e) => {
