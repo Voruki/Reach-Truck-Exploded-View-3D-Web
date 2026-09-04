@@ -1,6 +1,6 @@
 @font-face {
   font-family: 'Inter';
-  src: url('assets/fonts/Inter-VariableFont_slnt,wght.ttf') format('truetype');
+  src: url('assets/fonts/Inter-VariableFont_opsz,wght.ttf') format('truetype');
   font-weight: 100 900;
   font-style: normal;
 }
@@ -155,14 +155,12 @@ h1, h2, .panel-header { font-family: 'Space Grotesk', sans-serif; }
 .nav-brand strong { font-weight: 600; color: #FFFFFF; }
 .nav-brand .divider { margin: 0 8px; color: rgba(255, 255, 255, 0.4); }
 
-/* Crisp white "Demonstration" subtitle */
 .nav-brand .subtitle { 
   color: #FFFFFF; 
   opacity: 0.95; 
   font-weight: 400; 
 }
 
-/* Crisp white navbar links with soft luminous hover */
 .nav-links { display: flex; gap: 32px; align-items: center; }
 
 .nav-links a { 
@@ -197,12 +195,14 @@ h1, h2, .panel-header { font-family: 'Space Grotesk', sans-serif; }
 @keyframes spin { 100% { transform: rotate(360deg); } }
 #loader-text { font-size: 0.75rem; letter-spacing: 0.2em; color: var(--hermes-orange); }
 
-/* --- THE ROUNDED LIQUID GLASS VIEWPORT --- */
+/* --- RESPONSIVE PINNED HERO CONTAINER --- */
 .scroll-container { 
   position: relative;
   z-index: 2;
   height: 100vh;
-  width: 100vw;
+  width: 100%;
+  max-width: 100%;
+  margin: 0 auto;
   display: flex; 
   align-items: center; 
   justify-content: center; 
@@ -213,6 +213,7 @@ h1, h2, .panel-header { font-family: 'Space Grotesk', sans-serif; }
   width: 92vw;
   height: 85vh;
   max-width: 1600px;
+  margin: 0 auto;
   border-radius: 40px; 
   overflow: hidden; 
   
@@ -226,7 +227,6 @@ h1, h2, .panel-header { font-family: 'Space Grotesk', sans-serif; }
   display: flex; align-items: center; justify-content: center;
 }
 
-/* Surface Specular Reflection Sheen */
 .glass-viewport::after {
   content: ""; position: absolute; inset: 0;
   background: linear-gradient(135deg, rgba(255,255,255,0.12) 0%, rgba(255,255,255,0.02) 35%, rgba(255,91,0,0.04) 100%);
@@ -353,7 +353,6 @@ h1, h2, .panel-header { font-family: 'Space Grotesk', sans-serif; }
   font-weight: 400;
 }
 
-/* --- EMPHASIZED HIGH-CONTRAST CREDENTIALS --- */
 .creator-credentials {
   display: flex;
   flex-direction: column;
@@ -361,7 +360,6 @@ h1, h2, .panel-header { font-family: 'Space Grotesk', sans-serif; }
   margin-bottom: 24px;
 }
 
-/* Radiant amber job title */
 .role-title {
   font-family: 'Space Grotesk', sans-serif;
   font-size: 1.2rem;
@@ -372,7 +370,6 @@ h1, h2, .panel-header { font-family: 'Space Grotesk', sans-serif; }
   text-shadow: 0 2px 10px rgba(0, 0, 0, 0.9), 0 0 16px rgba(255, 162, 0, 0.4);
 }
 
-/* Crisp pure white engineering degree */
 .degree-title {
   font-family: 'Space Grotesk', sans-serif;
   font-size: 1rem;
@@ -384,7 +381,6 @@ h1, h2, .panel-header { font-family: 'Space Grotesk', sans-serif; }
   text-shadow: 0 2px 8px rgba(0, 0, 0, 0.9);
 }
 
-/* Uniform, high-contrast readable white body text */
 .creator-bio p {
   font-size: 1rem !important;
   line-height: 1.65;
@@ -410,7 +406,6 @@ h1, h2, .panel-header { font-family: 'Space Grotesk', sans-serif; }
   box-shadow: 0 15px 30px rgba(255, 85, 0, 0.5);
 }
 
-/* Responsive adjustments for tablet & mobile */
 @media (max-width: 860px) {
   .creator-card { padding: 40px 28px; }
   .creator-layout { flex-direction: column; text-align: center; gap: 32px; }
