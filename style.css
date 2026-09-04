@@ -13,23 +13,24 @@
 }
 
 :root {
-  --bg-onyx: #08080a; /* Seamlessly matches the dark studio floor of your 3D model */
-  --hermes-orange: #FF5B00; 
-  --hermes-light: #FF9E3B;
+  --bg-black: #050507; /* Deep studio black */
+  --hermes-orange: #FF5500; 
+  --hermes-amber: #FFA200;
+  --hermes-red: #D62800;
   
   --text-main: #f5f5f7;
   --text-muted: #8e8e93;
   
-  /* Precision Liquid Glass: dark-tinted smoke to preserve canvas contrast */
-  --glass-bg: rgba(12, 12, 16, 0.5);
-  --glass-border: rgba(255, 255, 255, 0.14);
-  --glass-highlight: inset 0 1px 1.5px rgba(255, 255, 255, 0.25), inset 0 -1px 2px rgba(0, 0, 0, 0.4);
+  /* Precision Smoked Liquid Glass */
+  --glass-bg: rgba(14, 14, 18, 0.45);
+  --glass-border: rgba(255, 255, 255, 0.12);
+  --glass-highlight: inset 0 1px 1.5px rgba(255, 255, 255, 0.25), inset 0 -1px 2px rgba(0, 0, 0, 0.5);
 }
 
 * { box-sizing: border-box; margin: 0; padding: 0; }
 
 body, html {
-  background-color: var(--bg-onyx);
+  background-color: var(--bg-black);
   color: var(--text-main);
   font-family: 'Inter', -apple-system, sans-serif;
   overflow-x: hidden;
@@ -49,25 +50,31 @@ h1, h2, .panel-header { font-family: 'Space Grotesk', sans-serif; }
 
 .cursor-follower {
   position: fixed; top: 0; left: 0;
-  width: 32px; height: 32px; border: 1.5px solid rgba(255, 91, 0, 0.7);
+  width: 32px; height: 32px; border: 1.5px solid rgba(255, 120, 0, 0.7);
   border-radius: 50%; pointer-events: none; z-index: 9999;
   transform: translate(-50%, -50%); transition: transform 0.1s ease-out;
 }
 
-/* --- OPTION 1: BACKLIT STUDIO HALO BACKGROUND --- */
+/* --- PHOTOGRAPHIC LIGHT-LEAK GRADIENT --- */
 .ambient-bg {
   position: fixed; 
   inset: 0; 
   z-index: 0;
-  background: var(--bg-onyx);
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  background-color: var(--bg-black);
   overflow: hidden;
   pointer-events: none;
 }
 
-/* Focused Hermès Orange Halo anchored behind the glass viewport */
+/* Film Grain Texture Overlay matching Reference 2 */
+.ambient-bg::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.04'/%3E%3C/svg%3E");
+  pointer-events: none;
+  opacity: 0.6;
+}
+
 .orb {
   position: absolute;
   border-radius: 50%;
@@ -75,19 +82,79 @@ h1, h2, .panel-header { font-family: 'Space Grotesk', sans-serif; }
   will-change: transform, opacity;
 }
 
+/* 1. Top-Right Amber Flare (Exact Match to Image 1) */
 .orb-1 {
-  width: 85vw;
-  height: 80vh;
-  max-width: 1500px;
+  width: 60vw;
+  height: 60vw;
+  max-width: 900px;
   max-height: 900px;
-  background: radial-gradient(ellipse at center, rgba(255, 91, 0, 0.38) 0%, rgba(216, 67, 21, 0.18) 45%, rgba(8, 8, 10, 0) 75%);
-  filter: blur(85px);
-  transform: scale(1);
+  top: -15%;
+  right: -10%;
+  background: radial-gradient(circle at 60% 40%, rgba(255, 162, 0, 0.75) 0%, rgba(255, 85, 0, 0.45) 45%, rgba(5, 5, 7, 0) 75%);
+  filter: blur(95px);
+  animation: breathe-top-right 12s ease-in-out infinite alternate;
 }
 
-/* Subdued secondary glimmers to keep outer frame dark */
-.orb-2, .orb-3 {
-  display: none;
+/* 2. Bottom-Left Fiery Orange Bloom (Exact Match to Image 1) */
+.orb-2 {
+  display: block !important;
+  width: 70vw;
+  height: 70vw;
+  max-width: 1100px;
+  max-height: 1100px;
+  bottom: -25%;
+  left: -15%;
+  background: radial-gradient(circle at 40% 60%, rgba(255, 95, 0, 0.8) 0%, rgba(214, 40, 0, 0.45) 50%, rgba(5, 5, 7, 0) 75%);
+  filter: blur(105px);
+  animation: breathe-bottom-left 14s ease-in-out infinite alternate;
+}
+
+/* Subtle Crimson Depth Connector */
+.orb-3 {
+  display: block !important;
+  width: 45vw;
+  height: 45vw;
+  bottom: 10%;
+  left: -5%;
+  background: radial-gradient(circle, rgba(160, 20, 0, 0.4) 0%, rgba(5, 5, 7, 0) 70%);
+  filter: blur(120px);
+  animation: breathe-depth 16s ease-in-out infinite alternate;
+}
+
+/* --- ORGANIC BREATHING KEYFRAMES --- */
+@keyframes breathe-top-right {
+  0% {
+    transform: translate(0, 0) scale(1);
+    opacity: 0.85;
+  }
+  50% {
+    transform: translate(-3vw, 4vh) scale(1.08);
+    opacity: 1;
+  }
+  100% {
+    transform: translate(-5vw, 2vh) scale(0.96);
+    opacity: 0.8;
+  }
+}
+
+@keyframes breathe-bottom-left {
+  0% {
+    transform: translate(0, 0) scale(1);
+    opacity: 0.9;
+  }
+  50% {
+    transform: translate(4vw, -3vh) scale(1.1);
+    opacity: 0.95;
+  }
+  100% {
+    transform: translate(2vw, -5vh) scale(0.95);
+    opacity: 0.85;
+  }
+}
+
+@keyframes breathe-depth {
+  0% { transform: scale(1) translateY(0); opacity: 0.4; }
+  100% { transform: scale(1.15) translateY(-40px); opacity: 0.65; }
 }
 
 /* --- Floating Glass Navbar --- */
@@ -97,10 +164,10 @@ h1, h2, .panel-header { font-family: 'Space Grotesk', sans-serif; }
   display: flex; justify-content: space-between; align-items: center; padding: 0 32px;
   
   background: var(--glass-bg);
-  backdrop-filter: blur(24px) saturate(180%);
-  -webkit-backdrop-filter: blur(24px) saturate(180%);
+  backdrop-filter: blur(28px) saturate(180%);
+  -webkit-backdrop-filter: blur(28px) saturate(180%);
   border: 1px solid var(--glass-border);
-  box-shadow: var(--glass-highlight), 0 20px 40px rgba(0,0,0,0.5);
+  box-shadow: var(--glass-highlight), 0 20px 40px rgba(0,0,0,0.6);
   
   border-radius: 40px; 
   z-index: 1000;
@@ -108,8 +175,8 @@ h1, h2, .panel-header { font-family: 'Space Grotesk', sans-serif; }
 }
 
 .glass-nav:hover {
-  border-color: rgba(255, 255, 255, 0.3);
-  box-shadow: var(--glass-highlight), 0 20px 40px rgba(0,0,0,0.5), 0 0 25px rgba(255, 91, 0, 0.25);
+  border-color: rgba(255, 255, 255, 0.28);
+  box-shadow: var(--glass-highlight), 0 20px 40px rgba(0,0,0,0.6), 0 0 25px rgba(255, 95, 0, 0.2);
 }
 
 .nav-brand { font-size: 0.95rem; letter-spacing: 0.02em; }
@@ -122,13 +189,13 @@ h1, h2, .panel-header { font-family: 'Space Grotesk', sans-serif; }
 
 /* --- Loading Screen --- */
 #loader {
-  position: fixed; inset: 0; background: var(--bg-onyx);
+  position: fixed; inset: 0; background: var(--bg-black);
   display: flex; flex-direction: column; align-items: center; justify-content: center;
   z-index: 9999; transition: opacity 0.8s ease, visibility 0.8s;
 }
 #loader.loaded { opacity: 0; visibility: hidden; }
 .loader-ring {
-  width: 40px; height: 40px; border: 2px solid rgba(255,255,255,0.12);
+  width: 40px; height: 40px; border: 2px solid rgba(255,255,255,0.1);
   border-top-color: var(--hermes-orange); border-radius: 50%;
   animation: spin 1s cubic-bezier(0.6, 0.1, 0.4, 0.9) infinite; margin-bottom: 20px;
 }
@@ -158,7 +225,7 @@ h1, h2, .panel-header { font-family: 'Space Grotesk', sans-serif; }
   backdrop-filter: blur(35px) saturate(180%);
   -webkit-backdrop-filter: blur(35px) saturate(180%);
   border: 1px solid var(--glass-border);
-  box-shadow: var(--glass-highlight), 0 35px 80px rgba(0, 0, 0, 0.7), 0 0 60px rgba(255, 91, 0, 0.18);
+  box-shadow: var(--glass-highlight), 0 35px 80px rgba(0, 0, 0, 0.8), 0 0 50px rgba(255, 85, 0, 0.12);
   
   -webkit-mask-image: -webkit-radial-gradient(white, black);
   
@@ -192,7 +259,7 @@ h1, h2, .panel-header { font-family: 'Space Grotesk', sans-serif; }
 
 .panel-header {
   display: flex; align-items: center; gap: 10px; font-size: 0.65rem;
-  font-weight: 700; letter-spacing: 0.15em; color: var(--hermes-light); margin-bottom: 20px;
+  font-weight: 700; letter-spacing: 0.15em; color: var(--hermes-amber); margin-bottom: 20px;
 }
 
 .recording-dot {
@@ -236,7 +303,7 @@ h1, h2, .panel-header { font-family: 'Space Grotesk', sans-serif; }
   backdrop-filter: blur(35px) saturate(180%);
   -webkit-backdrop-filter: blur(35px) saturate(180%);
   border: 1px solid var(--glass-border);
-  box-shadow: var(--glass-highlight), 0 25px 50px rgba(0,0,0,0.5);
+  box-shadow: var(--glass-highlight), 0 25px 50px rgba(0,0,0,0.6);
   border-radius: 32px; padding: 60px;
 }
 
@@ -247,11 +314,11 @@ h1, h2, .panel-header { font-family: 'Space Grotesk', sans-serif; }
 .action-btn {
   display: inline-block; padding: 16px 36px; background: var(--hermes-orange); color: #fff;
   text-decoration: none; border-radius: 30px; font-weight: 600; font-size: 0.95rem;
-  box-shadow: 0 10px 24px rgba(255, 91, 0, 0.35);
+  box-shadow: 0 10px 24px rgba(255, 85, 0, 0.35);
   transition: transform 0.2s, box-shadow 0.2s;
 }
 
 .action-btn:hover {
   transform: translateY(-2px);
-  box-shadow: 0 15px 30px rgba(255, 91, 0, 0.5);
+  box-shadow: 0 15px 30px rgba(255, 85, 0, 0.5);
 }
