@@ -54,10 +54,13 @@ h1, h2, .panel-header { font-family: 'Space Grotesk', sans-serif; }
   transform: translate(-50%, -50%); transition: transform 0.1s ease-out;
 }
 
-/* --- EXACT REFERENCE DUAL-CORNER LIGHT LEAKS --- */
+/* --- EXACT REFERENCE DUAL-CORNER LIGHT LEAKS (With 60px Bleed Buffer) --- */
 .ambient-bg {
   position: fixed; 
-  inset: 0; 
+  top: -60px;
+  left: -60px;
+  width: calc(100vw + 120px);
+  height: calc(100vh + 120px);
   z-index: 0;
   background-color: var(--bg-black);
   overflow: hidden;
