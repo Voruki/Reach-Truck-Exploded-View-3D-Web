@@ -12,7 +12,7 @@ const forkliftTrack = { frame: 0 };
 // Pad numbers (e.g. 1 -> "001")
 const formatFrame = (index) => String(index + 1).padStart(3, "0");
 
-// Update with your actual asset extension (.webp or .jpg)
+// CHANGED TO .jpg HERE:
 const getFramePath = (index) => `frames/frame_${formatFrame(index)}.jpg`;
 
 let loadedCount = 0;
@@ -31,10 +31,10 @@ function render() {
 
   context.clearRect(0, 0, canvas.width, canvas.height);
 
-  // Responsive 'contain' calculation: guarantees the forklift never cuts off
+  // Responsive 'contain' calculation
   const hRatio = canvas.width / img.naturalWidth;
   const vRatio = canvas.height / img.naturalHeight;
-  const ratio = Math.min(hRatio, vRatio) * 0.9; // 0.9 leaves safe margins
+  const ratio = Math.min(hRatio, vRatio) * 0.9;
 
   const drawWidth = img.naturalWidth * ratio;
   const drawHeight = img.naturalHeight * ratio;
@@ -61,6 +61,10 @@ for (let i = 0; i < FRAME_COUNT; i++) {
     }
   };
 
+  img.onerror = () => {
+    console.error(`Missing file: ${img.src}`);
+  };
+
   images.push(img);
 }
 
@@ -73,7 +77,7 @@ function setupScrollAnimation() {
       trigger: ".scroll-container",
       start: "top top",
       end: "bottom bottom",
-      scrub: 0.5, // Smooth inertia
+      scrub: 0.5,
     },
     onUpdate: render,
   });
