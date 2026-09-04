@@ -427,7 +427,7 @@ h1, h2, .panel-header { font-family: 'Space Grotesk', sans-serif; }
   box-shadow: 0 15px 30px rgba(255, 85, 0, 0.5);
 }
 
-/* --- MOBILE RESPONSIVENESS (2-ROW STACKED NAVBAR FIX) --- */
+/* --- MOBILE RESPONSIVENESS (ACTION PILLS NAVBAR FIX) --- */
 @media (max-width: 860px) {
   /* Hide custom desktop cursor on mobile */
   .custom-cursor,
@@ -444,48 +444,55 @@ h1, h2, .panel-header { font-family: 'Space Grotesk', sans-serif; }
     top: 12px !important;
     height: auto !important;
     min-height: auto !important;
-    padding: 12px 20px !important;
-    flex-direction: column !important; /* Forces top/bottom 2-row layout */
+    padding: 12px 16px !important;
+    flex-direction: column !important;
     justify-content: center !important;
     align-items: center !important;
-    gap: 10px !important; /* Clean air gap between title and links */
+    gap: 10px !important;
     border-radius: 26px !important;
   }
 
-  /* Row 1: Brand title with dot on a single row */
+  /* Row 1: Static Title Header (Slightly dimmed for contrast) */
   .nav-brand {
     display: inline-flex !important;
     align-items: center !important;
     justify-content: center !important;
-    white-space: nowrap !important; /* Prevents Demonstration from wrapping */
-    font-size: 0.82rem !important;
+    white-space: nowrap !important;
+    font-size: 0.78rem !important;
     text-align: center;
     width: 100% !important;
+    opacity: 0.75 !important; 
   }
 
   .nav-brand strong {
-    font-size: 0.84rem;
+    font-size: 0.8rem;
   }
 
   .nav-brand .subtitle {
-    font-size: 0.80rem;
+    font-size: 0.76rem;
   }
 
   .nav-brand .divider {
-    margin: 0 5px !important;
+    margin: 0 4px !important;
   }
 
-  /* Row 2: Links centered with ample tap targets */
+  /* Row 2: Clickable Interactive Action Pills */
   .nav-links {
     display: flex !important;
     justify-content: center !important;
     align-items: center !important;
-    gap: 20px !important;
+    gap: 8px !important;
     width: 100% !important;
   }
 
   .nav-links a {
-    font-size: 0.78rem !important;
+    font-size: 0.75rem !important;
+    padding: 6px 12px !important;
+    background: rgba(255, 255, 255, 0.1) !important;
+    border: 1px solid rgba(255, 255, 255, 0.2) !important;
+    border-radius: 9999px !important;
+    opacity: 1 !important;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
   }
 
   /* Viewport adjustments */
