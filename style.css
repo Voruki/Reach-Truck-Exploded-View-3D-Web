@@ -427,7 +427,7 @@ h1, h2, .panel-header { font-family: 'Space Grotesk', sans-serif; }
   box-shadow: 0 15px 30px rgba(255, 85, 0, 0.5);
 }
 
-/* --- MOBILE RESPONSIVENESS & AIR GAP FIX --- */
+/* --- MOBILE RESPONSIVENESS (2-ROW STACKED NAVBAR FIX) --- */
 @media (max-width: 860px) {
   /* Hide custom desktop cursor on mobile */
   .custom-cursor,
@@ -439,33 +439,53 @@ h1, h2, .panel-header { font-family: 'Space Grotesk', sans-serif; }
     cursor: auto !important;
   }
 
-  /* Air gap & vertical layout for mobile navbar */
+  /* 2-Row Stacked Floating Navbar */
   .glass-nav {
-    top: 12px;
-    height: auto;
-    min-height: 54px;
-    padding: 10px 16px;
-    flex-direction: column;
-    justify-content: center;
-    gap: 8px; /* Air gap between brand title and links */
-    border-radius: 24px;
+    top: 12px !important;
+    height: auto !important;
+    min-height: auto !important;
+    padding: 12px 20px !important;
+    flex-direction: column !important; /* Forces top/bottom 2-row layout */
+    justify-content: center !important;
+    align-items: center !important;
+    gap: 10px !important; /* Clean air gap between title and links */
+    border-radius: 26px !important;
   }
 
+  /* Row 1: Brand title with dot on a single row */
   .nav-brand {
-    font-size: 0.82rem;
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    white-space: nowrap !important; /* Prevents Demonstration from wrapping */
+    font-size: 0.82rem !important;
     text-align: center;
+    width: 100% !important;
+  }
+
+  .nav-brand strong {
+    font-size: 0.84rem;
+  }
+
+  .nav-brand .subtitle {
+    font-size: 0.80rem;
   }
 
   .nav-brand .divider {
-    margin: 0 4px;
+    margin: 0 5px !important;
   }
 
+  /* Row 2: Links centered with ample tap targets */
   .nav-links {
-    gap: 14px; /* Air gap between individual links */
+    display: flex !important;
+    justify-content: center !important;
+    align-items: center !important;
+    gap: 20px !important;
+    width: 100% !important;
   }
 
   .nav-links a {
-    font-size: 0.78rem;
+    font-size: 0.78rem !important;
   }
 
   /* Viewport adjustments */
