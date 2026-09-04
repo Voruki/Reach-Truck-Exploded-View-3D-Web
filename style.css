@@ -13,25 +13,22 @@
 }
 
 :root {
-  /* Rich, warm backdrop matching reference */
-  --bg-color: #1f0a02; 
-  --hermes-orange: #FF6600; 
-  --hermes-light: #FF9E3B;
-  --hermes-dark: #D13400;
+  --hermes-orange: #FF5B00; 
+  --hermes-light: #FFB300;
+  --text-main: #FFFFFF;
+  --text-muted: rgba(255, 255, 255, 0.8);
   
-  --text-main: #f5f5f7;
-  --text-muted: #e2d5ce;
-  
-  /* True Liquid Glass Variables */
-  --glass-bg: rgba(255, 255, 255, 0.05);
-  --glass-border: rgba(255, 255, 255, 0.2);
-  --glass-highlight: inset 0 1px 2px rgba(255, 255, 255, 0.35), inset 0 -1px 2px rgba(0, 0, 0, 0.15);
+  /* Liquid Glass: Tinted smoked amber to preserve contrast against bright orange */
+  --glass-bg: rgba(18, 9, 4, 0.42);
+  --glass-border: rgba(255, 255, 255, 0.22);
+  --glass-highlight: inset 0 1px 2px rgba(255, 255, 255, 0.35), inset 0 -1px 2px rgba(0, 0, 0, 0.3);
 }
 
 * { box-sizing: border-box; margin: 0; padding: 0; }
 
 body, html {
-  background-color: var(--bg-color);
+  /* Warm base color matching reference so black never shows */
+  background-color: #E64A00;
   color: var(--text-main);
   font-family: 'Inter', -apple-system, sans-serif;
   overflow-x: hidden;
@@ -44,54 +41,58 @@ h1, h2, .panel-header { font-family: 'Space Grotesk', sans-serif; }
 /* --- Custom Cursor --- */
 .custom-cursor {
   position: fixed; top: 0; left: 0;
-  width: 6px; height: 6px; background-color: var(--text-main);
+  width: 6px; height: 6px; background-color: #FFFFFF;
   border-radius: 50%; pointer-events: none; z-index: 10000;
   transform: translate(-50%, -50%); transition: width 0.2s, height 0.2s;
 }
 
 .cursor-follower {
   position: fixed; top: 0; left: 0;
-  width: 32px; height: 32px; border: 1px solid var(--hermes-light);
+  width: 32px; height: 32px; border: 1.5px solid rgba(255, 255, 255, 0.8);
   border-radius: 50%; pointer-events: none; z-index: 9999;
   transform: translate(-50%, -50%); transition: transform 0.1s ease-out;
 }
 
-/* --- AWWWARDS-STYLE SCROLL-REACTIVE MESH GRADIENT --- */
+/* --- EXACT REFERENCE-MATCHING BOKEH MESH GRADIENT --- */
 .ambient-bg {
-  position: fixed; inset: 0; z-index: -1;
-  background: linear-gradient(135deg, #FF8800 0%, #FF3300 50%, #991100 100%);
+  position: fixed; 
+  inset: 0; 
+  z-index: 0; /* Kept at 0 so it stays in front of the body */
+  background: radial-gradient(ellipse at 65% 30%, #FF8F00 0%, #E64A00 55%, #991B00 100%);
   overflow: hidden;
-}
-
-.orb {
-  position: absolute; border-radius: 50%; 
-  filter: blur(130px); /* Deep photographic bokeh blur */
-  opacity: 0.85;
-  mix-blend-mode: screen;
-  will-change: transform; /* Optimizes performance for scroll-reactivity */
   pointer-events: none;
 }
 
-/* Luminous Gold Top Highlight */
+.orb {
+  position: absolute; 
+  border-radius: 50%; 
+  filter: blur(110px); /* Creates the soft photographic bokeh effect */
+  will-change: transform;
+  pointer-events: none;
+}
+
+/* 1. Luminous Golden-Yellow Hotspot (Top Center / Right from reference) */
 .orb-1 {
-  width: 70vw; height: 70vw;
-  background: radial-gradient(circle, #FFE17D 0%, rgba(255,136,0,0) 70%);
-  top: -30%; left: 10%;
-}
-
-/* Vibrant Tangerine Bottom-Right */
-.orb-2 {
-  width: 75vw; height: 75vw;
-  background: radial-gradient(circle, #FF5500 0%, rgba(209,52,0,0) 70%);
-  bottom: -30%; right: -10%;
-}
-
-/* Deep Crimson Accent */
-.orb-3 {
   width: 60vw; height: 60vw;
-  background: radial-gradient(circle, #FF2233 0%, rgba(153,17,0,0) 70%);
-  top: 20%; left: 25%;
-  opacity: 0.5;
+  background: radial-gradient(circle, #FFF9A6 5%, #FFB300 45%, rgba(255, 179, 0, 0) 75%);
+  top: -18%; right: 10%;
+  opacity: 0.95;
+}
+
+/* 2. Deep Burnt Crimson Corner (Top Left from reference) */
+.orb-2 {
+  width: 65vw; height: 65vw;
+  background: radial-gradient(circle, #801000 15%, #B71C1C 50%, rgba(183, 28, 28, 0) 75%);
+  top: -22%; left: -18%;
+  opacity: 0.9;
+}
+
+/* 3. Saturated Warm Amber Base (Bottom Center) */
+.orb-3 {
+  width: 75vw; height: 75vw;
+  background: radial-gradient(circle, #FFA000 10%, #FF6D00 50%, rgba(255, 109, 0, 0) 75%);
+  bottom: -30%; left: 15%;
+  opacity: 0.85;
 }
 
 /* --- Floating Glass Navbar --- */
@@ -101,23 +102,24 @@ h1, h2, .panel-header { font-family: 'Space Grotesk', sans-serif; }
   display: flex; justify-content: space-between; align-items: center; padding: 0 32px;
   
   background: var(--glass-bg);
-  backdrop-filter: blur(24px) saturate(180%);
-  -webkit-backdrop-filter: blur(24px) saturate(180%);
+  backdrop-filter: blur(30px) saturate(180%);
+  -webkit-backdrop-filter: blur(30px) saturate(180%);
   border: 1px solid var(--glass-border);
-  box-shadow: var(--glass-highlight), 0 15px 35px rgba(0,0,0,0.3);
+  box-shadow: var(--glass-highlight), 0 20px 40px rgba(0,0,0,0.25);
   
-  border-radius: 40px; z-index: 1000;
+  border-radius: 40px; 
+  z-index: 1000;
   transition: all 0.4s ease;
 }
 
 .glass-nav:hover {
-  border-color: rgba(255, 255, 255, 0.4);
-  box-shadow: var(--glass-highlight), 0 15px 35px rgba(0,0,0,0.3), 0 0 30px rgba(255, 136, 0, 0.4);
+  border-color: rgba(255, 255, 255, 0.45);
+  box-shadow: var(--glass-highlight), 0 20px 40px rgba(0,0,0,0.3), 0 0 25px rgba(255, 255, 255, 0.2);
 }
 
 .nav-brand { font-size: 0.95rem; letter-spacing: 0.02em; }
 .nav-brand strong { font-weight: 600; color: #fff; }
-.nav-brand .divider { margin: 0 8px; color: var(--hermes-light); opacity: 0.8; }
+.nav-brand .divider { margin: 0 8px; color: rgba(255, 255, 255, 0.4); }
 .nav-brand .subtitle { color: var(--text-muted); font-weight: 400; }
 .nav-links { display: flex; gap: 32px; align-items: center; }
 .nav-links a { color: var(--text-muted); text-decoration: none; font-size: 0.85rem; transition: color 0.3s; }
@@ -125,21 +127,23 @@ h1, h2, .panel-header { font-family: 'Space Grotesk', sans-serif; }
 
 /* --- Loading Screen --- */
 #loader {
-  position: fixed; inset: 0; background: var(--bg-color);
+  position: fixed; inset: 0; background: #E64A00;
   display: flex; flex-direction: column; align-items: center; justify-content: center;
   z-index: 9999; transition: opacity 0.8s ease, visibility 0.8s;
 }
 #loader.loaded { opacity: 0; visibility: hidden; }
 .loader-ring {
-  width: 40px; height: 40px; border: 2px solid rgba(255,255,255,0.2);
-  border-top-color: var(--hermes-light); border-radius: 50%;
+  width: 40px; height: 40px; border: 2px solid rgba(255,255,255,0.3);
+  border-top-color: #FFFFFF; border-radius: 50%;
   animation: spin 1s cubic-bezier(0.6, 0.1, 0.4, 0.9) infinite; margin-bottom: 20px;
 }
 @keyframes spin { 100% { transform: rotate(360deg); } }
-#loader-text { font-size: 0.75rem; letter-spacing: 0.2em; color: var(--hermes-light); }
+#loader-text { font-size: 0.75rem; letter-spacing: 0.2em; color: #FFFFFF; }
 
 /* --- THE ROUNDED LIQUID GLASS VIEWPORT --- */
 .scroll-container { 
+  position: relative;
+  z-index: 2; /* Sits above the ambient background */
   height: 100vh;
   width: 100vw;
   display: flex; 
@@ -156,10 +160,10 @@ h1, h2, .panel-header { font-family: 'Space Grotesk', sans-serif; }
   overflow: hidden; 
   
   background: var(--glass-bg);
-  backdrop-filter: blur(32px) saturate(200%);
-  -webkit-backdrop-filter: blur(32px) saturate(200%);
+  backdrop-filter: blur(40px) saturate(190%);
+  -webkit-backdrop-filter: blur(40px) saturate(190%);
   border: 1px solid var(--glass-border);
-  box-shadow: var(--glass-highlight), 0 40px 90px rgba(0, 0, 0, 0.45), 0 0 90px rgba(255, 136, 0, 0.3);
+  box-shadow: var(--glass-highlight), 0 35px 70px rgba(0, 0, 0, 0.35);
   
   -webkit-mask-image: -webkit-radial-gradient(white, black);
   
@@ -193,12 +197,12 @@ h1, h2, .panel-header { font-family: 'Space Grotesk', sans-serif; }
 
 .panel-header {
   display: flex; align-items: center; gap: 10px; font-size: 0.65rem;
-  font-weight: 700; letter-spacing: 0.15em; color: #FFE17D; margin-bottom: 20px;
+  font-weight: 700; letter-spacing: 0.15em; color: #FFF9A6; margin-bottom: 20px;
 }
 
 .recording-dot {
-  width: 6px; height: 6px; background: #FFE17D;
-  border-radius: 50%; box-shadow: 0 0 12px #FFE17D;
+  width: 6px; height: 6px; background: #FFF9A6;
+  border-radius: 50%; box-shadow: 0 0 12px #FFF9A6;
   animation: pulse 2s infinite;
 }
 
@@ -206,7 +210,7 @@ h1, h2, .panel-header { font-family: 'Space Grotesk', sans-serif; }
 
 .gradient-text {
   font-size: 2.5rem; font-weight: 600; letter-spacing: -0.02em; line-height: 1.1;
-  background: linear-gradient(180deg, #ffffff 0%, #ffdfba 100%);
+  background: linear-gradient(180deg, #ffffff 0%, #ffe0b2 100%);
   -webkit-background-clip: text; -webkit-text-fill-color: transparent; margin-bottom: 16px;
 }
 
@@ -215,19 +219,29 @@ h1, h2, .panel-header { font-family: 'Space Grotesk', sans-serif; }
 .scroll-badge {
   font-size: 0.65rem; letter-spacing: 0.1em; font-weight: 600;
   padding: 8px 16px; border-radius: 9999px; 
-  background: rgba(255, 255, 255, 0.1);
-  border: 1px solid rgba(255, 255, 255, 0.25); 
-  color: var(--text-main);
+  background: rgba(255, 255, 255, 0.15);
+  border: 1px solid rgba(255, 255, 255, 0.3); 
+  color: #FFFFFF;
 }
 
 /* --- Lower Content Blocks --- */
+.content-section { 
+  position: relative; 
+  z-index: 2; 
+  min-height: 100vh; 
+  display: flex; 
+  align-items: center; 
+  justify-content: center; 
+  padding: 0 5%; 
+}
+
 .glass-panel {
   pointer-events: auto;
   background: var(--glass-bg);
-  backdrop-filter: blur(28px) saturate(180%);
-  -webkit-backdrop-filter: blur(28px) saturate(180%);
+  backdrop-filter: blur(35px) saturate(180%);
+  -webkit-backdrop-filter: blur(35px) saturate(180%);
   border: 1px solid var(--glass-border);
-  box-shadow: var(--glass-highlight), 0 25px 50px rgba(0,0,0,0.4);
+  box-shadow: var(--glass-highlight), 0 25px 50px rgba(0,0,0,0.3);
   border-radius: 32px; padding: 60px;
 }
 
@@ -236,15 +250,13 @@ h1, h2, .panel-header { font-family: 'Space Grotesk', sans-serif; }
 .large-panel .lead { font-size: 1.1rem; margin-bottom: 40px; }
 
 .action-btn {
-  display: inline-block; padding: 16px 36px; background: var(--hermes-orange); color: #fff;
-  text-decoration: none; border-radius: 30px; font-weight: 600; font-size: 0.95rem;
-  box-shadow: 0 10px 24px rgba(255, 102, 0, 0.4);
+  display: inline-block; padding: 16px 36px; background: #FFFFFF; color: #D84315;
+  text-decoration: none; border-radius: 30px; font-weight: 700; font-size: 0.95rem;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
   transition: transform 0.2s, box-shadow 0.2s;
 }
 
 .action-btn:hover {
   transform: translateY(-2px);
-  box-shadow: 0 15px 30px rgba(255, 102, 0, 0.6);
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.3);
 }
-
-.content-section { min-height: 100vh; display: flex; align-items: center; justify-content: center; padding: 0 5%; }
