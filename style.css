@@ -228,6 +228,21 @@ h1, h2, .panel-header { font-family: 'Space Grotesk', sans-serif; }
   justify-content: center;
 }
 
+/* Surface Specular Reflection Sheen */
+.glass-viewport::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    135deg, 
+    rgba(255, 255, 255, 0.12) 0%, 
+    rgba(255, 255, 255, 0.02) 35%, 
+    rgba(255, 91, 0, 0.04) 100%
+  );
+  pointer-events: none;
+  z-index: 1;
+}
+
 #product-canvas { 
   position: absolute;
   top: 0; left: 0;
@@ -235,6 +250,10 @@ h1, h2, .panel-header { font-family: 'Space Grotesk', sans-serif; }
   height: 100%; 
   display: block; 
   image-rendering: -webkit-optimize-contrast;
+  
+  /* Translucent Liquid Glass Blend */
+  opacity: 0.86;
+  mix-blend-mode: lighten;
 }
 
 /* --- HUD Overlay Inside Glass --- */
@@ -246,6 +265,7 @@ h1, h2, .panel-header { font-family: 'Space Grotesk', sans-serif; }
   display: flex;
   align-items: flex-end; 
   justify-content: flex-start; 
+  z-index: 2; /* Sits above the canvas and glass sheen */
   transition: opacity 0.3s ease, transform 0.3s ease; 
 }
 
