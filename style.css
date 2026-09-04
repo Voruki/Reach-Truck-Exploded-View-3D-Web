@@ -13,17 +13,17 @@
 }
 
 :root {
-  --bg-black: #050507; /* Pure dark velvet black */
+  --bg-black: #050507; 
   --hermes-orange: #FF5500; 
   --hermes-amber: #FFA200;
   
-  --text-main: #f5f5f7;
-  --text-muted: #8e8e93;
+  --text-main: #FFFFFF;
+  --text-muted: #E5E5EA;
   
   /* Precision Liquid Glass */
   --glass-bg: rgba(14, 14, 18, 0.45);
-  --glass-border: rgba(255, 255, 255, 0.14);
-  --glass-highlight: inset 0 1px 1.5px rgba(255, 255, 255, 0.3), inset 0 -1px 2px rgba(0, 0, 0, 0.5);
+  --glass-border: rgba(255, 255, 255, 0.16);
+  --glass-highlight: inset 0 1px 1.5px rgba(255, 255, 255, 0.35), inset 0 -1px 2px rgba(0, 0, 0, 0.5);
 }
 
 * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -42,14 +42,14 @@ h1, h2, .panel-header { font-family: 'Space Grotesk', sans-serif; }
 /* --- Custom Cursor --- */
 .custom-cursor {
   position: fixed; top: 0; left: 0;
-  width: 6px; height: 6px; background-color: var(--text-main);
+  width: 6px; height: 6px; background-color: #FFFFFF;
   border-radius: 50%; pointer-events: none; z-index: 10000;
   transform: translate(-50%, -50%); transition: width 0.2s, height 0.2s;
 }
 
 .cursor-follower {
   position: fixed; top: 0; left: 0;
-  width: 32px; height: 32px; border: 1.5px solid rgba(255, 130, 0, 0.8);
+  width: 32px; height: 32px; border: 1.5px solid rgba(255, 162, 0, 0.85);
   border-radius: 50%; pointer-events: none; z-index: 9999;
   transform: translate(-50%, -50%); transition: transform 0.1s ease-out;
 }
@@ -71,51 +71,38 @@ h1, h2, .panel-header { font-family: 'Space Grotesk', sans-serif; }
   will-change: transform, opacity;
 }
 
-/* 1. TOP-RIGHT AMBER FLARE (Matches Reference Image) */
+/* 1. TOP-RIGHT AMBER FLARE */
 .orb-1 {
-  width: 65vw;
-  height: 65vw;
-  min-width: 650px;
-  min-height: 650px;
-  top: -20vh;
-  right: -15vw;
+  width: 65vw; height: 65vw;
+  min-width: 650px; min-height: 650px;
+  top: -20vh; right: -15vw;
   background: radial-gradient(circle at 60% 40%, #FFA000 0%, #FF5500 45%, #A62400 70%, transparent 85%);
-  filter: blur(85px);
-  opacity: 0.92;
+  filter: blur(85px); opacity: 0.92;
   animation: breathe-top-right 10s ease-in-out infinite alternate;
 }
 
-/* 2. BOTTOM-LEFT FIERY ORANGE BLOOM (Matches Reference Image) */
+/* 2. BOTTOM-LEFT FIERY ORANGE BLOOM */
 .orb-2 {
   display: block !important;
-  width: 75vw;
-  height: 75vw;
-  min-width: 750px;
-  min-height: 750px;
-  bottom: -25vh;
-  left: -18vw;
+  width: 75vw; height: 75vw;
+  min-width: 750px; min-height: 750px;
+  bottom: -25vh; left: -18vw;
   background: radial-gradient(circle at 45% 55%, #FF5B00 0%, #E63500 45%, #7A0D00 70%, transparent 85%);
-  filter: blur(95px);
-  opacity: 0.95;
+  filter: blur(95px); opacity: 0.95;
   animation: breathe-bottom-left 12s ease-in-out infinite alternate;
 }
 
 /* 3. CORE HIGHLIGHT PULSE */
 .orb-3 {
   display: block !important;
-  width: 40vw;
-  height: 40vw;
-  min-width: 400px;
-  min-height: 400px;
-  bottom: -10vh;
-  left: -5vw;
+  width: 40vw; height: 40vw;
+  min-width: 400px; min-height: 400px;
+  bottom: -10vh; left: -5vw;
   background: radial-gradient(circle, #FFB700 0%, rgba(255, 85, 0, 0.5) 50%, transparent 75%);
-  filter: blur(70px);
-  opacity: 0.8;
+  filter: blur(70px); opacity: 0.8;
   animation: breathe-core 8s ease-in-out infinite alternate;
 }
 
-/* --- ORGANIC BREATHING KEYFRAMES --- */
 @keyframes breathe-top-right {
   0% { transform: translate(0, 0) scale(1); opacity: 0.85; }
   50% { transform: translate(-30px, 25px) scale(1.1); opacity: 1; }
@@ -133,7 +120,7 @@ h1, h2, .panel-header { font-family: 'Space Grotesk', sans-serif; }
   100% { transform: scale(1.2); opacity: 0.9; }
 }
 
-/* --- Floating Glass Navbar (Extended Past Viewport Width) --- */
+/* --- HIGH-CONTRAST FLOATING GLASS NAVBAR --- */
 .glass-nav {
   position: fixed; 
   top: 24px; 
@@ -160,17 +147,40 @@ h1, h2, .panel-header { font-family: 'Space Grotesk', sans-serif; }
 }
 
 .glass-nav:hover {
-  border-color: rgba(255, 255, 255, 0.3);
-  box-shadow: var(--glass-highlight), 0 20px 40px rgba(0,0,0,0.6), 0 0 25px rgba(255, 95, 0, 0.25);
+  border-color: rgba(255, 255, 255, 0.35);
+  box-shadow: var(--glass-highlight), 0 20px 40px rgba(0,0,0,0.6), 0 0 25px rgba(255, 162, 0, 0.25);
 }
 
 .nav-brand { font-size: 0.95rem; letter-spacing: 0.02em; }
-.nav-brand strong { font-weight: 600; color: #fff; }
-.nav-brand .divider { margin: 0 8px; color: rgba(255, 255, 255, 0.2); }
-.nav-brand .subtitle { color: var(--text-muted); font-weight: 400; }
+.nav-brand strong { font-weight: 600; color: #FFFFFF; }
+.nav-brand .divider { margin: 0 8px; color: rgba(255, 255, 255, 0.4); }
+
+/* Crisp white "Demonstration" subtitle */
+.nav-brand .subtitle { 
+  color: #FFFFFF; 
+  opacity: 0.95; 
+  font-weight: 400; 
+}
+
+/* Crisp white navbar links with soft luminous hover */
 .nav-links { display: flex; gap: 32px; align-items: center; }
-.nav-links a { color: var(--text-muted); text-decoration: none; font-size: 0.85rem; transition: color 0.3s; }
-.nav-links a:hover { color: #fff; }
+
+.nav-links a { 
+  color: #FFFFFF; 
+  opacity: 0.92; 
+  text-decoration: none; 
+  font-size: 0.88rem; 
+  font-weight: 500;
+  letter-spacing: 0.02em;
+  transition: opacity 0.25s ease, text-shadow 0.25s ease, transform 0.25s ease; 
+}
+
+.nav-links a:hover { 
+  opacity: 1; 
+  color: #FFFFFF;
+  text-shadow: 0 0 12px rgba(255, 255, 255, 0.9), 0 0 22px rgba(255, 162, 0, 0.5);
+  transform: translateY(-1px);
+}
 
 /* --- Loading Screen --- */
 #loader {
@@ -213,51 +223,28 @@ h1, h2, .panel-header { font-family: 'Space Grotesk', sans-serif; }
   box-shadow: var(--glass-highlight), 0 35px 80px rgba(0, 0, 0, 0.8), 0 0 50px rgba(255, 85, 0, 0.18);
   
   -webkit-mask-image: -webkit-radial-gradient(white, black);
-  
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  display: flex; align-items: center; justify-content: center;
 }
 
 /* Surface Specular Reflection Sheen */
 .glass-viewport::after {
-  content: "";
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(
-    135deg, 
-    rgba(255, 255, 255, 0.12) 0%, 
-    rgba(255, 255, 255, 0.02) 35%, 
-    rgba(255, 91, 0, 0.04) 100%
-  );
-  pointer-events: none;
-  z-index: 1;
+  content: ""; position: absolute; inset: 0;
+  background: linear-gradient(135deg, rgba(255,255,255,0.12) 0%, rgba(255,255,255,0.02) 35%, rgba(255,91,0,0.04) 100%);
+  pointer-events: none; z-index: 1;
 }
 
 #product-canvas { 
-  position: absolute;
-  top: 0; left: 0;
-  width: 100%; 
-  height: 100%; 
-  display: block; 
+  position: absolute; top: 0; left: 0; width: 100%; height: 100%; display: block; 
   image-rendering: -webkit-optimize-contrast;
-  
-  /* Reduced transparency: higher opacity brings back solid mechanical presence */
   opacity: 0.94;
   mix-blend-mode: lighten;
 }
 
 /* --- HUD Overlay Inside Glass --- */
 .hud-layer {
-  position: absolute; 
-  inset: 0;
-  padding: 60px;
-  pointer-events: none; 
-  display: flex;
-  align-items: flex-end; 
-  justify-content: flex-start; 
-  z-index: 2; /* Sits above the canvas and glass sheen */
-  transition: opacity 0.3s ease, transform 0.3s ease; 
+  position: absolute; inset: 0; padding: 60px; pointer-events: none; 
+  display: flex; align-items: flex-end; justify-content: flex-start; 
+  z-index: 2; transition: opacity 0.3s ease, transform 0.3s ease; 
 }
 
 .hud-content { max-width: 400px; }
@@ -281,30 +268,24 @@ h1, h2, .panel-header { font-family: 'Space Grotesk', sans-serif; }
   -webkit-background-clip: text; -webkit-text-fill-color: transparent; margin-bottom: 16px;
 }
 
-.glass-panel p, .hud-content p { color: var(--text-muted); line-height: 1.6; font-size: 0.95rem; margin-bottom: 24px; }
+.glass-panel p, .hud-content p { color: #E5E5EA; line-height: 1.6; font-size: 0.95rem; margin-bottom: 24px; }
 
 .scroll-badge {
   font-size: 0.65rem; letter-spacing: 0.1em; font-weight: 600;
   padding: 8px 16px; border-radius: 9999px; 
   background: rgba(255, 255, 255, 0.05);
   border: 1px solid rgba(255, 255, 255, 0.12); 
-  color: var(--text-main);
+  color: #FFFFFF;
 }
 
 /* --- Lower Content Blocks --- */
 .content-section { 
-  position: relative; 
-  z-index: 2; 
-  min-height: 100vh; 
-  display: flex; 
-  align-items: center; 
-  justify-content: center; 
-  padding: 0 5%; 
+  position: relative; z-index: 2; min-height: 100vh; 
+  display: flex; align-items: center; justify-content: center; padding: 0 5%; 
 }
 
 .glass-panel {
-  pointer-events: auto;
-  background: var(--glass-bg);
+  pointer-events: auto; background: var(--glass-bg);
   backdrop-filter: blur(35px) saturate(180%);
   -webkit-backdrop-filter: blur(35px) saturate(180%);
   border: 1px solid var(--glass-border);
@@ -325,10 +306,7 @@ h1, h2, .panel-header { font-family: 'Space Grotesk', sans-serif; }
   gap: 56px;
 }
 
-/* Profile Photo Frame */
-.creator-photo-column {
-  flex-shrink: 0;
-}
+.creator-photo-column { flex-shrink: 0; }
 
 .creator-photo-frame {
   position: relative;
@@ -352,54 +330,68 @@ h1, h2, .panel-header { font-family: 'Space Grotesk', sans-serif; }
 }
 
 .photo-ambient-glow {
-  position: absolute;
-  inset: 0;
-  border-radius: 28px;
+  position: absolute; inset: 0; border-radius: 28px;
   background: linear-gradient(180deg, rgba(255,255,255,0.08) 0%, rgba(0,0,0,0.35) 100%);
   pointer-events: none;
 }
 
-/* Details & High-Contrast Typography */
 .creator-content-column {
   flex: 1;
   text-align: left;
 }
 
 .creator-name {
-  font-size: 2.6rem;
+  font-size: 2.7rem;
   line-height: 1.15;
-  margin-bottom: 8px;
+  margin-bottom: 12px;
   text-align: left;
 }
 
 .creator-name .alias {
   font-size: 1.8rem;
-  color: rgba(255, 255, 255, 0.75);
+  color: rgba(255, 255, 255, 0.8);
   font-weight: 400;
 }
 
+/* --- EMPHASIZED HIGH-CONTRAST CREDENTIALS --- */
 .creator-credentials {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-bottom: 24px;
+}
+
+/* Radiant amber job title */
+.role-title {
   font-family: 'Space Grotesk', sans-serif;
-  font-size: 0.95rem;
-  color: var(--hermes-amber);
-  line-height: 1.5;
-  letter-spacing: 0.02em;
-  margin-bottom: 22px;
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: #FFA200 !important;
+  letter-spacing: 0.015em;
+  line-height: 1.35;
+  text-shadow: 0 2px 10px rgba(0, 0, 0, 0.9), 0 0 16px rgba(255, 162, 0, 0.4);
 }
 
-.creator-credentials span {
-  color: rgba(255, 255, 255, 0.9);
-  font-size: 0.88rem;
-}
-
-/* Identical sizing and crisp, readable white text */
-.creator-bio p {
+/* Crisp pure white engineering degree */
+.degree-title {
+  font-family: 'Space Grotesk', sans-serif;
   font-size: 1rem;
+  font-weight: 600;
+  color: #FFFFFF !important;
+  letter-spacing: 0.015em;
+  opacity: 0.96;
+  line-height: 1.35;
+  text-shadow: 0 2px 8px rgba(0, 0, 0, 0.9);
+}
+
+/* Uniform, high-contrast readable white body text */
+.creator-bio p {
+  font-size: 1rem !important;
   line-height: 1.65;
-  color: #FFFFFF;
-  opacity: 0.95;
+  color: #FFFFFF !important;
+  opacity: 0.94;
   margin-bottom: 14px;
-  text-shadow: 0 1px 8px rgba(0, 0, 0, 0.7);
+  text-shadow: 0 1px 8px rgba(0, 0, 0, 0.8);
 }
 
 .creator-action {
@@ -420,31 +412,9 @@ h1, h2, .panel-header { font-family: 'Space Grotesk', sans-serif; }
 
 /* Responsive adjustments for tablet & mobile */
 @media (max-width: 860px) {
-  .creator-card {
-    padding: 40px 28px;
-  }
-
-  .creator-layout {
-    flex-direction: column;
-    text-align: center;
-    gap: 32px;
-  }
-
-  .creator-content-column {
-    text-align: center;
-  }
-
-  .creator-name {
-    text-align: center;
-  }
-
-  .panel-header {
-    justify-content: center;
-  }
-
-  .creator-photo-frame {
-    width: 200px;
-    height: 255px;
-    margin: 0 auto;
-  }
+  .creator-card { padding: 40px 28px; }
+  .creator-layout { flex-direction: column; text-align: center; gap: 32px; }
+  .creator-content-column, .creator-name { text-align: center; }
+  .panel-header { justify-content: center; }
+  .creator-photo-frame { width: 200px; height: 255px; margin: 0 auto; }
 }
