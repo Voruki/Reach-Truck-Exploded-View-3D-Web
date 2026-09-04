@@ -33,14 +33,14 @@ document.addEventListener('mousemove', (e) => {
 });
 
 const interactives = document.querySelectorAll('a, .magnetic-btn');
-interactives.forEach(el => {
+interactives.forEach((el) => {
   el.addEventListener('mouseenter', () => {
-    cursor.style.width = '12px'; 
+    cursor.style.width = '12px';
     cursor.style.height = '12px';
     cursor.style.mixBlendMode = 'difference';
   });
   el.addEventListener('mouseleave', () => {
-    cursor.style.width = '6px'; 
+    cursor.style.width = '6px';
     cursor.style.height = '6px';
     cursor.style.mixBlendMode = 'normal';
   });
@@ -53,9 +53,9 @@ const loader = document.getElementById("loader");
 const loaderText = document.getElementById("loader-text");
 const viewport = document.querySelector('.glass-viewport');
 const hudLayer = document.querySelector('.hud-layer');
-const studioHalo = document.querySelector('.orb-1'); // Targets the backlight halo
+const ambientBg = document.querySelector('.ambient-bg');
 
-const FRAME_COUNT = 60; 
+const FRAME_COUNT = 60;
 const images = [];
 const forkliftTrack = { frame: 0 };
 
@@ -68,10 +68,11 @@ function resizeAndRender() {
   const dpr = window.devicePixelRatio || 1;
   canvas.width = viewport.clientWidth * dpr;
   canvas.height = viewport.clientHeight * dpr;
-  
+
+  // High-clarity rendering to keep mechanical details sharp
   context.imageSmoothingEnabled = true;
   context.imageSmoothingQuality = "high";
-  
+
   render();
 }
 
@@ -83,7 +84,7 @@ function render() {
 
   const hRatio = canvas.width / img.naturalWidth;
   const vRatio = canvas.height / img.naturalHeight;
-  const ratio = Math.max(hRatio, vRatio); 
+  const ratio = Math.max(hRatio, vRatio);
 
   const drawWidth = img.naturalWidth * ratio;
   const drawHeight = img.naturalHeight * ratio;
@@ -93,7 +94,7 @@ function render() {
   context.drawImage(img, 0, 0, img.naturalWidth, img.naturalHeight, drawX, drawY, drawWidth, drawHeight);
 }
 
-// Preload 60 frames
+// Preload 60 sequence frames
 for (let i = 0; i < FRAME_COUNT; i++) {
   const img = new Image();
   img.src = getFramePath(i);
@@ -107,15 +108,15 @@ for (let i = 0; i < FRAME_COUNT; i++) {
       loader.classList.add("loaded");
       resizeAndRender();
       setupScrollAnimation();
-      setupMouseInteractions(); 
+      setupMouseInteractions();
     }
   };
-  
+
   img.onerror = () => console.error(`Missing frame: ${img.src}`);
   images.push(img);
 }
 
-// --- 4. GSAP SCROLL ANIMATION, HALO EXPANSION & FRAME 44 TEXT FADE ---
+// --- 4. GSAP SCROLL ANIMATION, REACTIVE GRADIENT & FRAME 44 HUD FADE ---
 function setupScrollAnimation() {
   gsap.to(forkliftTrack, {
     frame: FRAME_COUNT - 1,
@@ -124,9 +125,9 @@ function setupScrollAnimation() {
     scrollTrigger: {
       trigger: "#hero",
       start: "top top",
-      end: "+=180%", 
-      scrub: 0.5, 
-      pin: true, 
+      end: "+=180%",
+      scrub: 0.5,
+      pin: true,
     },
     onUpdate: () => {
       render();
@@ -134,19 +135,18 @@ function setupScrollAnimation() {
       const currentFrame = forkliftTrack.frame;
       const progress = currentFrame / (FRAME_COUNT - 1);
 
-      // 1. DYNAMIC BACKLIT STUDIO HALO
-      // As parts explode outward, the backlight smoothly expands and warms up
-      if (studioHalo) {
-        const scale = 1 + progress * 0.28; // Scales from 1.0 to 1.28
-        const opacity = 0.85 + progress * 0.15; // Intensifies as components expand
-        studioHalo.style.transform = `scale(${scale})`;
-        studioHalo.style.opacity = opacity;
+      // 1. SCROLL-REACTIVE AMBIENT DRIFT
+      // Moves the entire lighting field subtly with the scroll without overriding the CSS orb breathing keyframes
+      if (ambientBg) {
+        const driftY = progress * -40;
+        const subtleScale = 1 + progress * 0.06;
+        ambientBg.style.transform = `translateY(${driftY}px) scale(${subtleScale})`;
       }
 
-      // 2. FRAME 44 TEXT FADE LOGIC
+      // 2. FRAME 44 HUD TEXT FADE LOGIC
       if (hudLayer) {
         if (currentFrame <= 44) {
-          const opacity = 1 - (currentFrame / 44);
+          const opacity = 1 - currentFrame / 44;
           hudLayer.style.opacity = opacity;
           hudLayer.style.transform = `translateY(${(currentFrame / 44) * -25}px)`;
           hudLayer.style.pointerEvents = opacity === 0 ? 'none' : 'auto';
@@ -156,11 +156,11 @@ function setupScrollAnimation() {
           hudLayer.style.pointerEvents = 'none';
         }
       }
-    }
+    },
   });
 }
 
-// --- 5. PREMIUM 3D HOVER EFFECTS ---
+// --- 5. VISION-OS 3D HOVER & MAGNETIC BUTTONS ---
 function setupMouseInteractions() {
   const tiltElements = document.querySelectorAll(".3d-tilt");
   gsap.set(tiltElements, { transformPerspective: 1200, transformStyle: "preserve-3d" });
@@ -170,10 +170,10 @@ function setupMouseInteractions() {
     const yData = (e.clientY / window.innerHeight - 0.5) * 2;
 
     gsap.to(tiltElements, {
-      rotationY: xData * 4, 
-      rotationX: -yData * 4, 
+      rotationY: xData * 4,
+      rotationX: -yData * 4,
       ease: "power2.out",
-      duration: 1.5
+      duration: 1.5,
     });
   });
 
@@ -183,10 +183,10 @@ function setupMouseInteractions() {
       const rect = btn.getBoundingClientRect();
       const x = e.clientX - rect.left - rect.width / 2;
       const y = e.clientY - rect.top - rect.height / 2;
-      
+
       gsap.to(btn, { x: x * 0.3, y: y * 0.3, duration: 0.4, ease: "power2.out" });
     });
-    
+
     btn.addEventListener("mouseleave", () => {
       gsap.to(btn, { x: 0, y: 0, duration: 0.7, ease: "elastic.out(1, 0.3)" });
     });
