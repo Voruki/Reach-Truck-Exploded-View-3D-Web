@@ -4,12 +4,25 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Yong Ming Ngoh | Intralogistics Visualization</title>
+  
+  <!-- 1. Local Phosphor Icons -->
+  <link rel="stylesheet" type="text/css" href="assets/icons/regular/style.css" />
+  
+  <!-- 2. Main Stylesheet -->
   <link rel="stylesheet" href="style.css" />
-  <!-- GSAP & ScrollTrigger -->
+
+  <!-- 3. GSAP Core (CDN for optimized animation delivery) -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+  
+  <!-- 4. Local Lenis Smooth Scroll -->
+  <script src="assets/js/lenis.min.js"></script>
 </head>
 <body>
+
+  <!-- Custom Cursor Elements -->
+  <div class="custom-cursor"></div>
+  <div class="cursor-follower"></div>
 
   <!-- Ambient Glass Background -->
   <div class="ambient-bg">
@@ -25,7 +38,9 @@
     <div class="nav-links">
       <a href="#hero">Overview</a>
       <a href="#engineering">Architecture</a>
-      <a href="https://yourportfoliolink.com" target="_blank" class="magnetic-btn">Portfolio ↗</a>
+      <a href="https://yourportfoliolink.com" target="_blank" class="magnetic-btn">
+        Portfolio <i class="ph ph-arrow-up-right"></i>
+      </a>
     </div>
   </nav>
 
@@ -41,17 +56,17 @@
       <canvas id="product-canvas"></canvas>
     </div>
       
-    <!-- Interactive 3D HUD (Moved to Bottom Left to prevent blocking) -->
+    <!-- Interactive 3D HUD -->
     <div class="hud-layer">
       <div class="glass-panel 3d-tilt">
         <div class="panel-header">
           <div class="recording-dot"></div>
-          <span>INTRALOGISTICS CAPABILITY DEMO</span>
+          <span><i class="ph ph-cpu"></i> INTRALOGISTICS CAPABILITY DEMO</span>
         </div>
         <h1 class="gradient-text">Kinematic Assembly<br>Visualization</h1>
         <p>Interactive 3D spatial rendering. Scroll downwards to initiate the mechanical breakdown sequence and inspect the internal robotics infrastructure.</p>
         <div class="panel-footer">
-          <span class="scroll-badge">↓ SCROLL TO EXPAND</span>
+          <span class="scroll-badge"><i class="ph ph-mouse-scroll"></i> SCROLL TO EXPAND</span>
         </div>
       </div>
     </div>
@@ -61,8 +76,10 @@
   <section id="engineering" class="content-section">
     <div class="glass-panel large-panel 3d-tilt">
       <h2 class="gradient-text">Solution Design Engineering.</h2>
-      <p class="lead">Specializing in automated warehousing, robotics integration, and high-density material handling systems. Bridging complex mechanical infrastructure with scalable intralogistics design.</p>
-      <a href="mailto:your-email@example.com" class="action-btn magnetic-btn">Initiate Contact</a>
+      <p class="lead">Specializing in warehouse automation, intralogistics robotics, and mechanical engineering infrastructures. Bridging complex 3D CAD modeling with scalable presales solution architecture designed for high-density material handling and optimized scans per hour.</p>
+      <a href="mailto:your-email@example.com" class="action-btn magnetic-btn">
+        Initiate Contact <i class="ph ph-paper-plane-tilt"></i>
+      </a>
     </div>
   </section>
 
