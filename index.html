@@ -3,63 +3,63 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Apex-Reach D2 | Interactive Exploded View</title>
+  <title>Yong Ming Ngoh | 3D Interactive Demonstration</title>
   <link rel="stylesheet" href="style.css" />
-  <!-- GSAP & ScrollTrigger CDN -->
+  <!-- GSAP & ScrollTrigger -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
 </head>
 <body>
 
-  <!-- Top Glass Navigation Bar -->
-  <header class="navbar">
-    <div class="nav-brand">APEX-REACH D2</div>
-    <nav class="nav-links">
+  <!-- Premium Glass Navbar -->
+  <nav class="glass-nav">
+    <div class="nav-brand">
+      <strong>Yong Ming Ngoh</strong> <span class="divider">|</span> <span class="subtitle">Demonstration</span>
+    </div>
+    <div class="nav-links">
       <a href="#hero">Overview</a>
-      <a href="#profile">About Me</a>
-      <a href="https://yourportfoliolink.com" target="_blank" rel="noopener">Portfolio ↗</a>
-      <a href="#contact" class="btn-contact">Contact</a>
-    </nav>
-  </header>
+      <a href="#engineering">Architecture</a>
+      <a href="https://yourportfoliolink.com" target="_blank" class="magnetic-btn">Portfolio ↗</a>
+    </div>
+  </nav>
 
-  <!-- Loading Bar -->
-  <div id="loader" class="loader">
-    <div class="loader-spinner"></div>
-    <p id="loader-text">Loading Mechanical Assets: 0%</p>
+  <!-- Loading Sequence -->
+  <div id="loader">
+    <div class="loader-ring"></div>
+    <p id="loader-text">Initializing Render Engine 0%</p>
   </div>
 
-  <!-- Scroll Section with Pinned Canvas -->
+  <!-- Main Viewport -->
   <section id="hero" class="scroll-container">
     <div class="canvas-wrapper">
       <canvas id="product-canvas"></canvas>
       
-      <!-- Optional Floating Overlays -->
+      <!-- Interactive 3D HUD -->
       <div class="hud-layer">
-        <div class="hud-card top-left">
-          <span class="hud-tag">System</span>
-          <h3>Pantograph Reach Truck</h3>
-          <p>Scroll down to inspect internal sub-assemblies</p>
+        <div class="glass-panel 3d-tilt">
+          <div class="panel-header">
+            <div class="recording-dot"></div>
+            <span>SYSTEM ANALYSIS</span>
+          </div>
+          <h1 class="gradient-text">Apex-Reach D2</h1>
+          <p>Double-deep intralogistics reach truck. Scroll to initiate mechanical exploded assembly and inspect internal robotics.</p>
+          <div class="panel-footer">
+            <div class="scroll-indicator">
+              <div class="mouse-wheel"></div>
+            </div>
+            <span>Scroll to expand</span>
+          </div>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- Profile & Portfolio Section -->
-  <section id="profile" class="content-section">
-    <div class="section-card">
-      <span class="hud-tag">Engineer / Creator</span>
-      <h2>System Architecture & Design</h2>
-      <p>Specialized in intralogistics robotics, automated warehousing solutions, and precision mechanical engineering.</p>
-    </div>
-  </section>
-
-  <!-- Contact Section -->
-  <section id="contact" class="content-section">
-    <div class="section-card">
-      <span class="hud-tag">Inquiries</span>
-      <h2>Get in Touch</h2>
-      <p>Looking to collaborate or explore high-density warehouse solutions?</p>
-      <a href="mailto:your-email@example.com" class="action-button">Send Message</a>
+  <!-- Engineering Overview -->
+  <section id="engineering" class="content-section">
+    <div class="glass-panel large-panel 3d-tilt">
+      <h2 class="gradient-text">Engineering Precision.</h2>
+      <p class="lead">Specializing in warehouse automation, robotics integration, and high-density material handling solutions. Bridging complex mechanical infrastructure with scalable intralogistics design.</p>
+      <a href="mailto:your-email@example.com" class="action-btn magnetic-btn">Initiate Contact</a>
     </div>
   </section>
 
